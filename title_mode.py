@@ -18,7 +18,7 @@ def handle_events():
 
 def init():
     global image
-    image = load_image('title.png')
+    image = load_image('lobby_background.png')
 
 
 def finish():
@@ -32,5 +32,5 @@ def update():
 
 def draw():
     clear_canvas()
-    image.draw(400, 300)
+    image.draw(800, 450)
     update_canvas()

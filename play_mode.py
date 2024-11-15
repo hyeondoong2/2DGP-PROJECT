@@ -1,8 +1,8 @@
 from pico2d import *
-
 import game_world
-
+from sdl2 import SDL_QUIT, SDL_KEYDOWN, SDLK_ESCAPE, SDL_MOUSEMOTION, SDL_MOUSEBUTTONDOWN, SDL_MOUSEBUTTONUP
 import game_framework, title_mode
+from kitchen import Kitchen
 
 
 def handle_events():
@@ -21,10 +21,12 @@ def handle_events():
 def init():
     global running
     global boy
-    global image
+    global background
+    global kitchen
 
     running = True
-    image = load_image('lobby_background.png')
+    kitchen = Kitchen()
+    game_world.add_object(kitchen, 0)
 
 
 

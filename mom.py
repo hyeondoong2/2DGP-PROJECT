@@ -8,7 +8,8 @@ class Mom:
         self.frame_x = 0
         self.x, self.y = 1280, 300  # 중심 좌표
         self.width, self.height = 800, 700 # 크기
-        self.frame_duration = [1000, 5, 5, 5]  # 각 프레임에 대해 지속시간 설정 (첫 번째 프레임은 길게 설정)
+        self.frame_num = 4
+        self.frame_duration = [1000, 10, 10, 10]  # 각 프레임에 대해 지속시간 설정 (첫 번째 프레임은 길게 설정)
         self.current_frame_time = 0  # 현재 프레임이 얼마나 지속됐는지 추적
 
     def draw(self):
@@ -25,6 +26,6 @@ class Mom:
 
         # 첫 번째 프레임을 길게 표시하기 위해
         if self.current_frame_time >= self.frame_duration[self.frame_x]:
-            self.frame_x = (self.frame_x + 1) % 4  # 4개 프레임을 반복
+            self.frame_x = (self.frame_x + 1) % self.frame_num  # 4개 프레임을 반복
             self.current_frame_time = 0  # 시간 초기화
 

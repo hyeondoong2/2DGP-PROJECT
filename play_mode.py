@@ -16,8 +16,6 @@ def handle_events():
             game_framework.change_mode(title_mode)
         #elif (event.type, event.key) == (SDL_KEYUP, SDLK_i):
             #game_framework.push_mode(item_mode)
-        else:
-            boy.handle_event(event)
 
 
 def init():

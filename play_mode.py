@@ -3,10 +3,14 @@ import game_world
 from sdl2 import SDL_QUIT, SDL_KEYDOWN, SDLK_ESCAPE, SDL_MOUSEMOTION, SDL_MOUSEBUTTONDOWN, SDL_MOUSEBUTTONUP
 import game_framework, title_mode
 from kitchen import Kitchen
+from fire import Fire
 
+mouse_x, mouse_y = 0, 0
+money = 0
 
 def handle_events():
     global running
+    global mouse_x, mouse_y
 
     events = get_events()
     for event in events:
@@ -14,8 +18,6 @@ def handle_events():
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.change_mode(title_mode)
-        #elif (event.type, event.key) == (SDL_KEYUP, SDLK_i):
-            #game_framework.push_mode(item_mode)
 
 
 def init():
@@ -23,10 +25,23 @@ def init():
     global boy
     global background
     global kitchen
+    global fire
 
     running = True
     kitchen = Kitchen()
+    fire = [
+        Fire(480, 470),
+        Fire(690, 470),
+        Fire(400, 380),
+        Fire(600, 380),
+        Fire(800, 380)
+    ]
+
     game_world.add_object(kitchen, 0)
+    for f in fire:
+        game_world.add_object(f, 1)
+
+
 
 
 

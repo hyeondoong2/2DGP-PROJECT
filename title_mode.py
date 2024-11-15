@@ -3,6 +3,7 @@ from sdl2 import SDL_QUIT, SDL_KEYDOWN, SDLK_ESCAPE, SDL_MOUSEMOTION, SDL_MOUSEB
 import game_framework, play_mode, rule_mode
 from menu import GameRule
 from menu import GameStart
+from mom import Mom
 
 mouse_x, mouse_y = 0, 0
 
@@ -29,9 +30,11 @@ def init():
     global image
     global gameStart
     global gameRule
+    global mama
 
     gameStart = GameStart()
     gameRule = GameRule()
+    mama = Mom()
 
     image = load_image('lobby_background.png')
 
@@ -45,6 +48,7 @@ def update():
     # 마우스 상태에 따라 메뉴 업데이트
     gameStart.update(mouse_x, mouse_y)
     gameRule.update(mouse_x, mouse_y)
+    mama.update()
 
 
 
@@ -53,4 +57,5 @@ def draw():
     image.draw(800, 450)
     gameStart.draw()
     gameRule.draw()
+    mama.draw()
     update_canvas()

@@ -21,8 +21,10 @@ def handle_events():
 def init():
     global running
     global boy
+    global image
 
     running = True
+    image = load_image('lobby_background.png')
 
 
 

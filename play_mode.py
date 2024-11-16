@@ -9,6 +9,7 @@ from noodle import Noodle
 from powder import Powder
 from spring_onion import SpringOnion
 from pot import Pot
+from kettle import Kettle
 
 mouse_x, mouse_y = 0, 0
 money = 0
@@ -36,6 +37,7 @@ def init():
     global powder
     global springOnion
     global pot
+    global kettle
 
     running = True
     kitchen = Kitchen()
@@ -43,6 +45,7 @@ def init():
     noodle = Noodle()
     powder = Powder()
     springOnion = SpringOnion()
+    kettle = Kettle()
     fire = [
         Fire(530, 470),
         Fire(740, 470),
@@ -73,6 +76,8 @@ def init():
 
     for p in pot:
         game_world.add_object(p, 1)
+
+    game_world.add_object(kettle, 1)
 
 
 

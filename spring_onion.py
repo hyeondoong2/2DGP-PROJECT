@@ -1,11 +1,11 @@
 from pico2d import load_image
 
-class Noodle:
+class SpringOnion:
     def __init__(self):
-        self.image = load_image('noodle.png')
-        self.x, self.y = 270, 660
+        self.image = load_image('spring_onion.png')
+        self.x, self.y = 520, 820
         self.frame_x = 0
-        self.width, self.height = 121, 108
+        self.width, self.height = 152, 88
         self.frame_duration = [50, 50]  # 각 프레임에 대해 지속시간 설정 (첫 번째 프레임은 길게 설정)
         self.current_frame_time = 0  # 현재 프레임이 얼마나 지속됐는지 추적
 

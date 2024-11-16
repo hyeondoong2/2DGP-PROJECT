@@ -6,6 +6,8 @@ from kitchen import Kitchen
 from fire import Fire
 from egg import Egg
 from noodle import Noodle
+from powder import Powder
+from spring_onion import SpringOnion
 
 mouse_x, mouse_y = 0, 0
 money = 0
@@ -30,11 +32,15 @@ def init():
     global fire
     global egg
     global noodle
+    global powder
+    global springOnion
 
     running = True
     kitchen = Kitchen()
     egg =  Egg()
     noodle = Noodle()
+    powder = Powder()
+    springOnion = SpringOnion()
     fire = [
         Fire(480, 470),
         Fire(690, 470),
@@ -45,7 +51,9 @@ def init():
 
     game_world.add_object(kitchen, 0)
     game_world.add_object(egg, 1)
-    game_world.add_object(Noodle, 1)
+    game_world.add_object(noodle, 1)
+    game_world.add_object(powder, 1)
+    game_world.add_object(springOnion, 1)
 
     for f in fire:
         game_world.add_object(f, 1)

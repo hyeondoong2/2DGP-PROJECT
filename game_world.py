@@ -1,8 +1,19 @@
 world = [[] for _ in range(4)]
+collision_pairs={}
 
+def add_collision_pair(group,a,b):
+    if group not in collision_pairs:
+        collision_pairs[group]=[[],[]]
+    if a:   #a가 있을 때만 추가
+        collision_pairs[group][0].append(a)
+    if b:
+        collision_pairs[group][1].append(b)
 
 def add_object(o, depth = 0):
     world[depth].append(o)
+
+def add_objects(ol, depth = 0):
+    world[depth] += ol
 
 
 def update():
@@ -29,3 +40,28 @@ def remove_object(o):
 def clear():
     for layer in world:
         layer.clear()
+
+# fill here
+def collide(a, b):
+    al,ab,ar,at=a.get_bb()
+    bl,bb,br,bt=b.get_bb()
+
+    if ar<bl: return False
+    if al>br: return False
+    if at<bb: return False
+    if ab>bt: return False
+
+    return True
+    pass
+
+def handle_collisions():
+    #게임월드에 등록된 충돌정보를 바탕으로 실제 충돌검사를 수행
+    for group,pairs in collision_pairs.items():
+        for a in pairs[0]:  #a리스트에서 하나 뽑고
+            for b in pairs[1]:  #b리스트에서 하나 뽑고, 두개의 객체 가져오는거
+                if collide(a,b):
+                    print(f'{group} collide')
+                    a.handle_collision(group,b)
+                    b.handle_collision(group,a)
+
+    return None

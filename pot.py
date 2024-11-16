@@ -1,4 +1,4 @@
-from pico2d import load_image
+from pico2d import load_image, draw_rectangle
 
 class Pot:
     def __init__(self, x, y, size):
@@ -6,7 +6,15 @@ class Pot:
         self.x, self.y = x, y
         self.frame_x = 0
         self.image_width, self.image_height = 181, 118
+        self.bb_x, self.bb_y = 70, 50
         self.width, self.height = 181 * size, 118 * size
+        self.price = 0
+        self.water = False
+        self.egg = False
+        self.noodle = False
+        self.powder = False
+        self.spring_onion = False
+        self.isBurnt = False
         self.frame_duration = [50, 50]  # 각 프레임에 대해 지속시간 설정 (첫 번째 프레임은 길게 설정)
         self.current_frame_time = 0  # 현재 프레임이 얼마나 지속됐는지 추적
 
@@ -19,6 +27,11 @@ class Pot:
             self.x, self.y,  # 그릴 위치 (x, y)
             self.width, self.height  # 그릴 크기 (width, height)
         )
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        # fill here
+        return self.x - self.bb_x, self.y - self.bb_y, self.x + self.bb_x, self.y + self.bb_y
 
     def update(self):
         pass

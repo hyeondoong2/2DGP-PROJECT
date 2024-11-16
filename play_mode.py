@@ -71,18 +71,10 @@ def init():
     game_world.add_object(powder, 1)
     game_world.add_object(springOnion, 1)
 
-    for f in fire:
-        game_world.add_object(f, 1)
-
-    for p in pot:
-        game_world.add_object(p, 1)
+    game_world.add_objects(fire, 1)
+    game_world.add_objects(pot, 1)
 
     game_world.add_object(kettle, 1)
-
-
-
-
-
 
 def finish():
     game_world.clear()
@@ -104,3 +96,4 @@ def pause():
 
 def resume():
     pass
+

@@ -6,7 +6,7 @@ class Pot:
         self.x, self.y = x, y
         self.frame_x = 0
         self.image_width, self.image_height = 181, 118
-        self.bb_x, self.bb_y = 70, 50
+        self.bb_x, self.bb_y = 70, 30
         self.width, self.height = 181 * size, 118 * size
         self.price = 0
         self.water = False
@@ -15,6 +15,7 @@ class Pot:
         self.powder = False
         self.spring_onion = False
         self.isBurnt = False
+        self.isSelected = False
         self.frame_duration = [50, 50]  # 각 프레임에 대해 지속시간 설정 (첫 번째 프레임은 길게 설정)
         self.current_frame_time = 0  # 현재 프레임이 얼마나 지속됐는지 추적
 
@@ -31,7 +32,16 @@ class Pot:
 
     def get_bb(self):
         # fill here
-        return self.x - self.bb_x, self.y - self.bb_y, self.x + self.bb_x, self.y + self.bb_y
+        return self.x - self.bb_x, self.y - self.bb_y + 20, self.x + self.bb_x, self.y + self.bb_y + 20
 
-    def update(self):
+    def check(self, click_x, click_y):
+        # 마우스가 메뉴 영역에 들어갔는지 확인
+        self.isSelected = (self.x - self.width // 2 <= click_x <= self.x + self.width // 2 and
+                           self.y - self.height // 2 <= click_y <= self.y + self.height // 2)
+
+    def update(self, mouse_x, mouse_y):
+        if self.isSelected:
+            self.x = mouse_x
+            self.y = mouse_y
+
         pass

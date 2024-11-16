@@ -19,7 +19,10 @@ class Fire:
             self.width, self.height  # 그릴 크기 (width, height)
         )
 
-    def update(self):
+    def check(self, x, y):
+        pass
+
+    def update(self,x, y):
         self.current_frame_time += 1
 
         if self.current_frame_time >= self.frame_duration[self.frame_x]:

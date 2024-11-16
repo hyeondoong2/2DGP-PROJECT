@@ -7,5 +7,8 @@ class Kitchen:
     def draw(self):
         self.image.draw(800, 450)
 
-    def update(self):
+    def check(self, x, y):
+        pass
+
+    def update(self,x, y):
         pass

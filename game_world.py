@@ -15,11 +15,15 @@ def add_object(o, depth = 0):
 def add_objects(ol, depth = 0):
     world[depth] += ol
 
-
-def update():
+def check_selected(x, y):
     for layer in world:
         for o in layer:
-            o.update()
+            o.check(x, y)
+
+def update(x, y):
+    for layer in world:
+        for o in layer:
+            o.update(x, y)
 
 
 def render():

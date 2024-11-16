@@ -12,11 +12,13 @@ from pot import Pot
 from kettle import Kettle
 
 mouse_x, mouse_y = 0, 0
+click_x, click_y = 0, 0
 money = 0
 
 def handle_events():
     global running
     global mouse_x, mouse_y
+    global click_x, click_y
 
     events = get_events()
     for event in events:
@@ -24,6 +26,12 @@ def handle_events():
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.change_mode(title_mode)
+        elif event.type == SDL_MOUSEMOTION:
+            mouse_x, mouse_y = event.x, 900 - event.y  # PyGame은 좌표계가 다름
+        elif event.type == SDL_MOUSEBUTTONDOWN:
+            # 메뉴 클릭 처리
+            click_x, click_y = event.x, 900 - event.y
+            game_world.check_selected(click_x, click_y)
 
 
 def init():
@@ -82,7 +90,7 @@ def finish():
 
 
 def update():
-    game_world.update()
+    game_world.update(mouse_x, mouse_y)
     pass
 
 

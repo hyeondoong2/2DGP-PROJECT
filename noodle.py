@@ -1,11 +1,11 @@
 from pico2d import load_image
 
-class Egg:
+class Noodle:
     def __init__(self):
-        self.image = load_image('egg.png')
-        self.x, self.y = 493, 645
+        self.image = load_image('noodle.png')
+        self.x, self.y = 400, 645
         self.frame_x = 0
-        self.width, self.height = 40, 51
+        self.width, self.height = 128, 124
         self.frame_duration = [50, 50]  # 각 프레임에 대해 지속시간 설정 (첫 번째 프레임은 길게 설정)
         self.current_frame_time = 0  # 현재 프레임이 얼마나 지속됐는지 추적
 

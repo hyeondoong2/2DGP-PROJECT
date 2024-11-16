@@ -4,6 +4,7 @@ class Egg:
     def __init__(self):
         self.image = load_image('egg.png')
         self.x, self.y = 493, 645
+        self.origin_x, self.origin_y = self.x, self.y
         self.bb_x, self.bb_y = 100, 60
         self.frame_x = 0
         self.isSelected = False
@@ -24,16 +25,25 @@ class Egg:
 
     def get_bb(self):
         # fill here
-        return self.x - self.bb_x + 30, self.y - self.bb_y + 20, self.x + self.bb_x + 30, self.y + self.bb_y + 20
+        return self.x - self.bb_x, self.y - self.bb_y, self.x + self.bb_x, self.y + self.bb_y
 
     def check(self, click_x, click_y):
         # 마우스가 메뉴 영역에 들어갔는지 확인
-        self.isSelected = (self.x - self.width // 2 <= click_x <= self.x + self.width // 2 and
-                           self.y - self.height // 2 <= click_y <= self.y + self.height // 2)
+        self.isSelected = (self.origin_x - self.width // 2 <= click_x <= self.origin_x + self.width // 2 and
+                           self.origin_y - self.height // 2 <= click_y <= self.origin_y + self.height // 2)
+
+        if self.isSelected:
+            self.bb_x, self.bb_y = 20, 20
+        else:
+            self.bb_x, self.bb_y = 100, 60
+
 
     def update(self, mouse_x, mouse_y):
         if self.isSelected:
             self.x = mouse_x
             self.y = mouse_y
+        else:
+            self.x = self.origin_x
+            self.y = self.origin_y
 
         pass

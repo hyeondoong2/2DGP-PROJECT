@@ -63,24 +63,24 @@ def init():
     ]
 
     pot = [
-        Pot(525, 510, 1),
-        Pot(735, 510, 1),
-        Pot(455, 420, 1),
-        Pot(655, 420,1 ),
+        Pot(525, 510, True),
+        Pot(735, 510, True),
+        Pot(455, 420, True),
+        Pot(655, 420,True ),
 
-        Pot(890, 800,1 ),
-        Pot(990, 800, 1),
-        Pot(1090, 800, 1),
+        Pot(890, 800,False ),
+        Pot(990, 800, False),
+        Pot(1090, 800, False),
     ]
 
     game_world.add_object(kitchen, 0)
+    game_world.add_objects(fire, 1)
+    game_world.add_objects(pot, 1)
+
     game_world.add_object(egg, 1)
     game_world.add_object(noodle, 1)
     game_world.add_object(powder, 1)
     game_world.add_object(springOnion, 1)
-
-    game_world.add_objects(fire, 1)
-    game_world.add_objects(pot, 1)
 
     game_world.add_object(kettle, 1)
 

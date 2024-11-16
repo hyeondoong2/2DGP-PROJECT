@@ -8,6 +8,7 @@ from egg import Egg
 from noodle import Noodle
 from powder import Powder
 from spring_onion import SpringOnion
+from pot import Pot
 
 mouse_x, mouse_y = 0, 0
 money = 0
@@ -34,6 +35,7 @@ def init():
     global noodle
     global powder
     global springOnion
+    global pot
 
     running = True
     kitchen = Kitchen()
@@ -42,11 +44,22 @@ def init():
     powder = Powder()
     springOnion = SpringOnion()
     fire = [
-        Fire(480, 470),
-        Fire(690, 470),
-        Fire(400, 380),
-        Fire(600, 380),
-        Fire(800, 380)
+        Fire(530, 470),
+        Fire(740, 470),
+        Fire(460, 380),
+        Fire(660, 380),
+        Fire(860, 380)
+    ]
+
+    pot = [
+        Pot(525, 510, 1),
+        Pot(735, 510, 1),
+        Pot(455, 420, 1),
+        Pot(655, 420,1 ),
+
+        Pot(890, 800,1 ),
+        Pot(990, 800, 1),
+        Pot(1090, 800, 1),
     ]
 
     game_world.add_object(kitchen, 0)
@@ -57,6 +70,10 @@ def init():
 
     for f in fire:
         game_world.add_object(f, 1)
+
+    for p in pot:
+        game_world.add_object(p, 1)
+
 
 
 

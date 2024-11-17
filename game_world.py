@@ -20,6 +20,11 @@ def check_selected(x, y):
         for o in layer:
             o.check(x, y)
 
+def check_mouseUp(x, y):
+    for layer in world:
+        for o in layer:
+            o.check_mouseUp(x, y)
+
 def update(x, y):
     for layer in world:
         for o in layer:
@@ -71,7 +76,7 @@ def handle_collisions():
         for a in pairs[0]:  #a리스트에서 하나 뽑고
             for b in pairs[1]:  #b리스트에서 하나 뽑고, 두개의 객체 가져오는거
                 if collide(a,b):
-                    print(f'{group} collide')
+                    #print(f'{group} collide')
                     a.handle_collision(group,b)
                     b.handle_collision(group,a)
 

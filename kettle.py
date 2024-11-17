@@ -4,13 +4,16 @@ import game_framework
 
 class Kettle:
     def __init__(self):
-        self.image = load_image('kettle.png')
-        self.x, self.y = 860, 440
+        self.image = load_image('kettle_sprite_sheet.png')
+        self.x, self.y = 840, 450
+        self.ramen_x, self.ramen_y = 0, 0
         self.origin_x, self.origin_y = self.x, self.y
-        self.bb_x, self.bb_y = 50, 50
+        self.bb_x, self.bb_y = 15, 15
         self.frame_x = 0
         self.isSelected = False
-        self.width, self.height = 202, 178
+        self.isSelected2 = False
+        self.OnRamen = False
+        self.width, self.height = 204, 220
         self.frame_duration = [50, 50]  # 각 프레임에 대해 지속시간 설정 (첫 번째 프레임은 길게 설정)
         self.current_frame_time = 0  # 현재 프레임이 얼마나 지속됐는지 추적
 
@@ -27,12 +30,18 @@ class Kettle:
 
     def get_bb(self):
         # fill here
-        return self.x - self.bb_x, self.y - self.bb_y + 20, self.x + self.bb_x, self.y + self.bb_y + 20
+        return self.x - self.bb_x - 75, self.y - self.bb_y, self.x + self.bb_x - 75, self.y + self.bb_y
 
     def check(self, click_x, click_y):
-        # 마우스가 메뉴 영역에 들어갔는지 확인
+        # 메뉴 영역 클릭 여부 확인
         self.isSelected = (self.origin_x - self.width // 2 <= click_x <= self.origin_x + self.width // 2 and
                            self.origin_y - self.height // 2 <= click_y <= self.origin_y + self.height // 2)
+
+        # 냄비 위에 있는 경우 두 번째 클릭으로 고정
+        if self.OnRamen:
+            self.isSelected2 = True  # 고정 상태 활성화
+        elif not self.OnRamen:
+            self.isSelected2 = False  # 냄비 위가 아니면 초기화
 
     def update(self, mouse_x, mouse_y):
         if self.isSelected:
@@ -44,9 +53,18 @@ class Kettle:
 
         pass
 
+    def check_mouseUp(self, up_x, up_y):
+        if self.OnRamen:
+            pass
+        else:
+            pass
+
     def handle_collision(self, group, other):
         # fill here
         if group == 'pot:kettle':
-            game_world.remove_object(self)
+            self.OnRamen = True
+        else:
+            self.OnRamen = False
+
 
         pass

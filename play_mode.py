@@ -14,6 +14,7 @@ import os
 
 mouse_x, mouse_y = 0, 0
 click_x, click_y = 0, 0
+up_x, up_y = 0, 0
 
 class Game:
     def __init__(self):
@@ -34,6 +35,7 @@ def handle_events():
     global running
     global mouse_x, mouse_y
     global click_x, click_y
+    global up_x, up_y
 
     events = get_events()
     for event in events:
@@ -47,6 +49,10 @@ def handle_events():
             # 메뉴 클릭 처리
             click_x, click_y = event.x, 900 - event.y
             game_world.check_selected(click_x, click_y)
+        elif event.type == SDL_MOUSEBUTTONUP:
+            # 메뉴 클릭 처리
+            up_x, up_y = event.x, 900 - event.y
+            game_world.check_mouseUp(up_x, up_y)
 
 
 def init():
@@ -95,9 +101,9 @@ def init():
     game_world.add_objects(fire, 1)
     game_world.add_objects(pot, 1)
 
-    game_world.add_object(egg, 1)
     game_world.add_object(noodle, 1)
     game_world.add_object(powder, 1)
+    game_world.add_object(egg, 1)
     game_world.add_object(springOnion, 1)
 
     game_world.add_object(kettle, 1)

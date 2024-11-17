@@ -22,6 +22,9 @@ class Fire:
     def check(self, x, y):
         pass
 
+    def check_mouseUp(self, up_x, up_y):
+        pass
+
     def update(self,x, y):
         self.current_frame_time += 1
 
@@ -30,6 +33,7 @@ class Fire:
             self.current_frame_time = 0  # 시간 초기화
 
         pass
+
 
     def handle_collision(self, group, other):
         # fill here

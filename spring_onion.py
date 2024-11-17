@@ -7,8 +7,11 @@ class SpringOnion:
         self.x, self.y = 520, 820
         self.origin_x, self.origin_y = self.x, self.y
         self.bb_x, self.bb_y = 100, 60
+        self.ramen_x , self.ramen_y = 0, 0
         self.frame_x = 0
         self.isSelected = False
+        self.isSelected2 = False
+        self.OnRamen = False
         self.width, self.height = 152, 88
         self.frame_duration = [50, 50]  # 각 프레임에 대해 지속시간 설정 (첫 번째 프레임은 길게 설정)
         self.current_frame_time = 0  # 현재 프레임이 얼마나 지속됐는지 추적
@@ -29,27 +32,44 @@ class SpringOnion:
         return self.x - self.bb_x, self.y - self.bb_y, self.x + self.bb_x, self.y + self.bb_y
 
     def check(self, click_x, click_y):
-        # 마우스가 메뉴 영역에 들어갔는지 확인
+        # 메뉴 영역 클릭 여부 확인
         self.isSelected = (self.origin_x - self.width // 2 <= click_x <= self.origin_x + self.width // 2 and
                            self.origin_y - self.height // 2 <= click_y <= self.origin_y + self.height // 2)
 
-        if self.isSelected:
+        # 냄비 위에 있는 경우 두 번째 클릭으로 고정
+        if self.OnRamen:
+            self.isSelected2 = True  # 고정 상태 활성화
+        elif not self.OnRamen:
+            self.isSelected2 = False  # 냄비 위가 아니면 초기화
+
+        # 충돌 여부에 따라 Bounding Box 조정
+        if self.isSelected or self.OnRamen:
             self.bb_x, self.bb_y = 70, 40
-        else:
+        elif not self.isSelected:
             self.bb_x, self.bb_y = 100, 60
 
+    def check_mouseUp(self, up_x, up_y):
+        if self.OnRamen:
+            pass
+        else:
+            pass
 
     def update(self, mouse_x, mouse_y):
-        if self.isSelected:
+        if self.isSelected2:  # 냄비 위에서 고정된 상태
+            self.x = self.ramen_x
+            self.y = self.ramen_y
+        elif self.isSelected:  # 마우스로 드래그 중인 상태
             self.x = mouse_x
             self.y = mouse_y
-        else:
+        else:  # 원래 자리로 복귀
             self.x = self.origin_x
             self.y = self.origin_y
-
         pass
 
     def handle_collision(self, group, other):
-        if  group == 'pot:springOnion':
-            game_world.remove_object(self)
+        if group == 'pot:springOnion' and not self.isSelected2:
+            self.OnRamen = True
+            self.ramen_x, self.ramen_y = other.x, other.y + 10 # 냄비의 좌표를 저장
+        elif not self.isSelected2:
+            self.OnRamen = False
         pass

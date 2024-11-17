@@ -45,18 +45,29 @@ class Pot:
 
     def update(self, mouse_x, mouse_y):
         if self.isSelected:
-            self.x = mouse_x
-            self.y = mouse_y
+            pass
         else:
             self.x = self.origin_x
             self.y = self.origin_y
 
         pass
 
-    def handle_collision(self, group, other):
-        if (group == 'pot:egg' or group == 'pot:noodle'
-                or group == 'pot:springOnion' or group == 'pot:powder' or group == 'pot:kettle'):
-            game_world.remove_object(self)
-
-
+    def check_mouseUp(self, up_x, up_y):
         pass
+
+    def handle_collision(self, group, other):
+        if group == 'pot:egg':
+            self.egg = True
+            pass
+        elif group == 'pot:noodle':
+            self.noodle = True
+            pass
+        elif group == 'pot:springOnion':
+            self.spring_onion = True
+            pass
+        elif group == 'pot:powder':
+            self.powder = True
+            pass
+        elif group == 'pot:kettle':
+            self.water = True
+            pass

@@ -10,6 +10,9 @@ class Kitchen:
     def check(self, x, y):
         pass
 
+    def check_mouseUp(self, up_x, up_y):
+        pass
+
     def update(self,x, y):
         pass
 

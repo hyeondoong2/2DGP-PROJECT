@@ -30,3 +30,7 @@ class Fire:
             self.current_frame_time = 0  # 시간 초기화
 
         pass
+
+    def handle_collision(self, group, other):
+        # fill here
+        pass

@@ -102,6 +102,21 @@ def init():
 
     game_world.add_object(kettle, 1)
 
+    # 충돌 정보 등록
+    game_world.add_collision_pair('pot:egg', egg, None)
+    game_world.add_collision_pair('pot:powder', powder, None)
+    game_world.add_collision_pair('pot:noodle', noodle, None)
+    game_world.add_collision_pair('pot:springOnion', springOnion, None)
+    game_world.add_collision_pair('pot:kettle', kettle, None)
+
+    for p in pot:
+        game_world.add_collision_pair('pot:egg', None, p)
+        game_world.add_collision_pair('pot:powder', None, p)
+        game_world.add_collision_pair('pot:noodle', None, p)
+        game_world.add_collision_pair('pot:springOnion',None, p)
+        game_world.add_collision_pair('pot:kettle', None, p)
+
+
 def finish():
     game_world.clear()
     pass
@@ -109,6 +124,7 @@ def finish():
 
 def update():
     game_world.update(mouse_x, mouse_y)
+    game_world.handle_collisions()
     pass
 
 

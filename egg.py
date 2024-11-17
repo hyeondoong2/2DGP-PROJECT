@@ -1,4 +1,6 @@
 from pico2d import load_image, draw_rectangle
+import game_world
+import game_framework
 
 class Egg:
     def __init__(self):
@@ -6,6 +8,7 @@ class Egg:
         self.x, self.y = 493, 645
         self.origin_x, self.origin_y = self.x, self.y
         self.bb_x, self.bb_y = 100, 60
+        self.adjust_x, self.adjust_y = 30, 20
         self.frame_x = 0
         self.isSelected = False
         self.width, self.height = 40, 51
@@ -25,7 +28,8 @@ class Egg:
 
     def get_bb(self):
         # fill here
-        return self.x - self.bb_x, self.y - self.bb_y, self.x + self.bb_x, self.y + self.bb_y
+        return (self.x - self.bb_x + self.adjust_x, self.y - self.bb_y + self.adjust_y,
+                self.x + self.bb_x + self.adjust_x, self.y + self.bb_y + self.adjust_y)
 
     def check(self, click_x, click_y):
         # 마우스가 메뉴 영역에 들어갔는지 확인
@@ -34,8 +38,10 @@ class Egg:
 
         if self.isSelected:
             self.bb_x, self.bb_y = 20, 20
+            self.adjust_x, self.adjust_y = 0, 0
         else:
             self.bb_x, self.bb_y = 100, 60
+            self.adjust_x, self.adjust_y = 30, 20
 
 
     def update(self, mouse_x, mouse_y):
@@ -45,5 +51,12 @@ class Egg:
         else:
             self.x = self.origin_x
             self.y = self.origin_y
+
+        pass
+
+    def handle_collision(self, group, other):
+        # fill here
+        if group == 'pot:egg':
+            game_world.remove_object(self)
 
         pass

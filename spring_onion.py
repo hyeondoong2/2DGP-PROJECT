@@ -1,4 +1,5 @@
 from pico2d import load_image, draw_rectangle
+import game_world
 
 class SpringOnion:
     def __init__(self):
@@ -46,4 +47,9 @@ class SpringOnion:
             self.x = self.origin_x
             self.y = self.origin_y
 
+        pass
+
+    def handle_collision(self, group, other):
+        if  group == 'pot:springOnion':
+            game_world.remove_object(self)
         pass

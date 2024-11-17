@@ -12,3 +12,6 @@ class Kitchen:
 
     def update(self,x, y):
         pass
+
+    def handle_collision(self, group, other):
+        pass

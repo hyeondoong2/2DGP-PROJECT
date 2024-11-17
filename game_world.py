@@ -32,12 +32,19 @@ def render():
             o.draw()
 
 
+def remove_collision_objects(o):
+    for pairs in collision_pairs.values():
+        if o in pairs[0]:pairs[0].remove(o)
+        if o in pairs[1]:pairs[1].remove(o)
+    pass
+
 def remove_object(o):
     for layer in world:
         if o in layer:
-            layer.remove(o)
+            layer.remove(o)     #월드에서 o를 삭제함 그치만 다른곳에 남아있어
+            remove_collision_objects(o)
+            del o # 메모리에서 객체 자체를 삭제
             return
-
     raise ValueError('Cannot delete non existing object')
 
 

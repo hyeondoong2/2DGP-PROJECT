@@ -1,4 +1,5 @@
 from pico2d import load_image, draw_rectangle
+import game_world
 
 class Pot:
     def __init__(self, x, y, burning):
@@ -49,5 +50,13 @@ class Pot:
         else:
             self.x = self.origin_x
             self.y = self.origin_y
+
+        pass
+
+    def handle_collision(self, group, other):
+        if (group == 'pot:egg' or group == 'pot:noodle'
+                or group == 'pot:springOnion' or group == 'pot:powder' or group == 'pot:kettle'):
+            game_world.remove_object(self)
+
 
         pass

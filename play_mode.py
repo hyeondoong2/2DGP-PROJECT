@@ -10,10 +10,25 @@ from powder import Powder
 from spring_onion import SpringOnion
 from pot import Pot
 from kettle import Kettle
+import os
 
 mouse_x, mouse_y = 0, 0
 click_x, click_y = 0, 0
-money = 0
+
+class Game:
+    def __init__(self):
+        self.font = load_font("UhBee Seulvely.ttf", 50)
+        self.money = 0
+
+    def draw(self):
+        self.font.draw(1350, 720, f'{self.money:01d}', (0, 0, 0))
+        pass
+
+    def check(self, x, y):
+        pass
+
+    def update(self,x, y):
+        pass
 
 def handle_events():
     global running
@@ -46,6 +61,7 @@ def init():
     global springOnion
     global pot
     global kettle
+    global game
 
     running = True
     kitchen = Kitchen()
@@ -54,6 +70,8 @@ def init():
     powder = Powder()
     springOnion = SpringOnion()
     kettle = Kettle()
+    game = Game()
+
     fire = [
         Fire(530, 470),
         Fire(740, 470),
@@ -97,6 +115,7 @@ def update():
 def draw():
     clear_canvas()
     game_world.render()
+    game.draw()
     update_canvas()
 
 def pause():

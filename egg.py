@@ -39,10 +39,14 @@ class Egg:
                            self.origin_y - self.height // 2 <= click_y <= self.origin_y + self.height // 2)
 
         # 냄비 위에 있는 경우 두 번째 클릭으로 고정
-        if self.OnRamen:
-            self.isSelected2 = True  # 고정 상태 활성화
-        elif not self.OnRamen:
-            self.isSelected2 = False # 냄비 위가 아니면 초기화
+        if not self.isSelected2:
+            if self.OnRamen:
+                self.isSelected2 = True  # 고정 상태 활성화
+                egg = Egg()
+                game_world.add_object(egg,5)
+                game_world.add_collision_pair('pot:egg', egg, None)
+            elif not self.OnRamen:
+                self.isSelected2 = False # 냄비 위가 아니면 초기화
 
         # 충돌 여부에 따라 Bounding Box 조정
         if self.isSelected or self.OnRamen:
@@ -72,9 +76,10 @@ class Egg:
         pass
 
     def handle_collision(self, group, other):
-        if group == 'pot:egg' and not self.isSelected2:
+        if group == 'pot:egg' and not self.isSelected2 and other.egg == False:
             self.OnRamen = True
-            self.ramen_x, self.ramen_y = other.x, other.y + 10 # 냄비의 좌표를 저장
-        elif not self.isSelected2:
+            self.ramen_x, self.ramen_y = other.x, other.y + 10  # 냄비의 좌표를 저장
+        elif group == 'pot:egg' and not self.isSelected2:
             self.OnRamen = False
-        pass
+        elif group == 'pot:egg' and self.OnRamen:
+            other.egg = True

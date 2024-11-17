@@ -8,7 +8,7 @@ class Pot:
         self.origin_x, self.origin_y = x, y
         self.frame_x = 0
         self.image_width, self.image_height = 181, 118
-        self.bb_x, self.bb_y = 70, 30
+        self.bb_x, self.bb_y = 60, 20
         self.width, self.height = 181, 118
         self.price = 0
         self.water = False
@@ -57,17 +57,12 @@ class Pot:
 
     def handle_collision(self, group, other):
         if group == 'pot:egg':
-            self.egg = True
             pass
         elif group == 'pot:noodle':
-            self.noodle = True
             pass
         elif group == 'pot:springOnion':
-            self.spring_onion = True
             pass
         elif group == 'pot:powder':
-            self.powder = True
             pass
         elif group == 'pot:kettle':
-            self.water = True
             pass

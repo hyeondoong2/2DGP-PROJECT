@@ -1,4 +1,4 @@
-world = [[] for _ in range(4)]
+world = [[] for _ in range(10)]
 collision_pairs={}
 
 def add_collision_pair(group,a,b):

@@ -99,14 +99,14 @@ def init():
 
     game_world.add_object(kitchen, 0)
     game_world.add_objects(fire, 1)
-    game_world.add_objects(pot, 1)
+    game_world.add_objects(pot, 2)
 
-    game_world.add_object(noodle, 1)
-    game_world.add_object(powder, 1)
-    game_world.add_object(egg, 1)
-    game_world.add_object(springOnion, 1)
+    game_world.add_object(noodle, 3)
+    game_world.add_object(powder, 4)
+    game_world.add_object(egg, 5)
+    game_world.add_object(springOnion, 6)
 
-    game_world.add_object(kettle, 1)
+    game_world.add_object(kettle, 7)
 
     # 충돌 정보 등록
     game_world.add_collision_pair('pot:egg', egg, None)

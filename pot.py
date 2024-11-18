@@ -1,5 +1,6 @@
 from pico2d import load_image, draw_rectangle
 import game_world
+from water import Water
 
 class Pot:
     def __init__(self, x, y, burning):
@@ -18,9 +19,10 @@ class Pot:
         self.spring_onion = False
         self.isBurnt = burning
         self.isSelected = False
+        self.make_water = False
         self.timer = 0
         self.frame_num = 5
-        self.frame_duration = [2000, 80, 80, 80, 80]  # 각 프레임에 대해 지속시간 설정 (첫 번째 프레임은 길게 설정)
+        self.frame_duration = [5000, 80, 80, 80, 80]  # 각 프레임에 대해 지속시간 설정 (첫 번째 프레임은 길게 설정)
         self.current_frame_time = 0  # 현재 프레임이 얼마나 지속됐는지 추적
 
 
@@ -32,7 +34,7 @@ class Pot:
             self.x, self.y,  # 그릴 위치 (x, y)
             self.width, self.height  # 그릴 크기 (width, height)
         )
-        #draw_rectangle(*self.get_bb())
+        draw_rectangle(*self.get_bb())
 
     def get_bb(self):
         # fill here
@@ -46,10 +48,18 @@ class Pot:
 
 
     def update(self, mouse_x, mouse_y):
+        if not self.make_water and self.water == True:
+            water = Water(self.x, self.y, self.powder)
+            game_world.add_object(water,7)
+            game_world.add_collision_pair('pot:water', water, None)
+            game_world.add_collision_pair('pot:water', None, self)
+            print('makeWater')
+            self.make_water = True
+
         if self.water:
             self.timer += 1
 
-            if self.timer > 50:
+            if self.timer > 0:
                 self.current_frame_time += 1
 
                 # 첫 번째 프레임을 길게 표시한 후 나머지 프레임만 반복
@@ -80,6 +90,13 @@ class Pot:
             pass
         elif group == 'pot:powder':
             pass
-        elif group == 'pot:kettle' and other.water == True:
+        elif group == 'pot:water':
+            #print('water')
+            if self.powder:
+                other.powder = True
+            else:
+                other.powder = False
+            pass
+        elif group == 'pot:kettle' and other.water:
             self.water = True
             pass

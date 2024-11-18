@@ -110,7 +110,7 @@ def init():
     game_world.add_object(egg, 5)
     game_world.add_object(springOnion, 6)
 
-    game_world.add_object(kettle, 7)
+    game_world.add_object(kettle, 8)
 
     # 충돌 정보 등록
     game_world.add_collision_pair('pot:egg', egg, None)

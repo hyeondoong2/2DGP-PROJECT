@@ -15,6 +15,7 @@ class Kettle:
         self.OnRamen = False
         self.frame_num = 3
         self.timer = 0
+        self.click_time = 0
         self.water = False
         self.width, self.height = 204, 220
         self.frame_duration = [50, 50, 50]  # 각 프레임에 대해 지속시간 설정 (첫 번째 프레임은 길게 설정)
@@ -29,11 +30,11 @@ class Kettle:
             self.x, self.y,  # 그릴 위치 (x, y)
             self.width, self.height  # 그릴 크기 (width, height)
         )
-        #draw_rectangle(*self.get_bb())
+        draw_rectangle(*self.get_bb())
 
     def get_bb(self):
         # fill here
-        return self.x - self.bb_x - 75, self.y - self.bb_y, self.x + self.bb_x - 75, self.y + self.bb_y
+        return self.x - self.bb_x - 75, self.y - self.bb_y - 20, self.x + self.bb_x - 75, self.y + self.bb_y - 20
 
     def check(self, click_x, click_y):
         # 메뉴 영역 클릭 여부 확인
@@ -90,13 +91,14 @@ class Kettle:
         pass
 
     def handle_collision(self, group, other):
-        if group == 'pot:kettle' and not self.isSelected2  and self.OnRamen and not other.water:
+        if group == 'pot:kettle' and self.isSelected2:
             self.OnRamen = True
             self.ramen_x, self.ramen_y = other.x + 50, other.y + 70  # 냄비의 좌표를 저장
             other.water = True
-        if group == 'pot:kettle' and not self.isSelected2:
+        elif group == 'pot:kettle' and not self.isSelected2:
             self.OnRamen = True
             self.ramen_x, self.ramen_y = other.x + 50, other.y + 70  # 냄비의 좌표를 저장
-        elif group == 'pot:kettle' and not self.isSelected2:
+            other.water = False
+        elif group == 'pot:kettle':
             self.OnRamen = False
             self.ramen_x, self.ramen_y = self.origin_x, self.origin_y

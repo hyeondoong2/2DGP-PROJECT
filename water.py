@@ -36,7 +36,7 @@ class Water:
                 self.width + 10, self.height + 10  # 그릴 크기 (width, height)
             )
 
-        draw_rectangle(*self.get_bb())
+        #draw_rectangle(*self.get_bb())
 
     def get_bb(self):
         # fill here

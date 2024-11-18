@@ -34,14 +34,14 @@ class Pot:
             self.x, self.y,  # 그릴 위치 (x, y)
             self.width, self.height  # 그릴 크기 (width, height)
         )
-        draw_rectangle(*self.get_bb())
+        #draw_rectangle(*self.get_bb())
 
     def get_bb(self):
         # fill here
         return self.x - self.bb_x, self.y - self.bb_y + 20, self.x + self.bb_x, self.y + self.bb_y + 20
 
     def check(self, click_x, click_y):
-        # 마우스가 메뉴 영역에 들어갔는지 확인
+        # 마우스가 영역에 들어갔는지 확인
         if self.isBurnt:
             self.isSelected = (self.origin_x - self.width // 2 <= click_x <= self.origin_x + self.width // 2 and
                                self.origin_y - self.height // 2 <= click_y <= self.origin_y + self.height // 2)

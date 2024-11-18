@@ -1,3 +1,6 @@
+import random
+from random import randint
+
 from pico2d import *
 import game_world
 from sdl2 import SDL_QUIT, SDL_KEYDOWN, SDLK_ESCAPE, SDL_MOUSEMOTION, SDL_MOUSEBUTTONDOWN, SDL_MOUSEBUTTONUP
@@ -10,7 +13,8 @@ from powder import Powder
 from spring_onion import SpringOnion
 from pot import Pot
 from kettle import Kettle
-import os
+from recipe import Recipe
+from tray import Tray
 
 mouse_x, mouse_y = 0, 0
 click_x, click_y = 0, 0
@@ -59,7 +63,7 @@ def init():
     global running
     global boy
     global background
-    global kitchen
+    global kitchen, tray
     global fire
     global egg
     global noodle
@@ -68,6 +72,7 @@ def init():
     global pot, temporary_pot
     global kettle
     global game
+    global recipe
 
     running = True
     kitchen = Kitchen()
@@ -77,6 +82,8 @@ def init():
     springOnion = SpringOnion()
     kettle = Kettle()
     game = Game()
+    tray = Tray()
+    recipe = Recipe(random.randint(0, 3))
 
     fire = [
         Fire(530, 470),
@@ -101,6 +108,7 @@ def init():
 
 
     game_world.add_object(kitchen, 0)
+    game_world.add_object(tray, 0)
     game_world.add_objects(fire, 1)
     game_world.add_objects(pot, 2)
     game_world.add_objects(temporary_pot, 2)
@@ -111,6 +119,7 @@ def init():
     game_world.add_object(springOnion, 6)
 
     game_world.add_object(kettle, 8)
+    game_world.add_object(recipe, 8)
 
     # 충돌 정보 등록
     game_world.add_collision_pair('pot:egg', egg, None)

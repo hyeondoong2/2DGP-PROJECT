@@ -65,7 +65,7 @@ def init():
     global noodle
     global powder
     global springOnion
-    global pot
+    global pot, temporary_pot
     global kettle
     global game
 
@@ -90,16 +90,20 @@ def init():
         Pot(525, 510, True),
         Pot(735, 510, True),
         Pot(455, 420, True),
-        Pot(655, 420,True ),
-
-        Pot(890, 800,False ),
-        Pot(990, 800, False),
-        Pot(1090, 800, False),
+        Pot(655, 420,True )
     ]
+    temporary_pot = [
+        Pot(890, 800, False),
+        Pot(990, 800, False),
+        Pot(1090, 800, False)
+    ]
+
+
 
     game_world.add_object(kitchen, 0)
     game_world.add_objects(fire, 1)
     game_world.add_objects(pot, 2)
+    game_world.add_objects(temporary_pot, 2)
 
     game_world.add_object(noodle, 3)
     game_world.add_object(powder, 4)

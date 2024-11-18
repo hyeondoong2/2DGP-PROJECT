@@ -18,19 +18,21 @@ class Pot:
         self.spring_onion = False
         self.isBurnt = burning
         self.isSelected = False
-        self.frame_duration = [50, 50]  # 각 프레임에 대해 지속시간 설정 (첫 번째 프레임은 길게 설정)
+        self.timer = 0
+        self.frame_num = 5
+        self.frame_duration = [2000, 80, 80, 80, 80]  # 각 프레임에 대해 지속시간 설정 (첫 번째 프레임은 길게 설정)
         self.current_frame_time = 0  # 현재 프레임이 얼마나 지속됐는지 추적
 
 
     def draw(self):
         self.image.clip_composite_draw(
-            self.frame_x * 1000, 0, self.image_width, self.image_height,  # 잘라낼 스프라이트 영역
+            self.frame_x * self.image_width, 0, self.image_width, self.image_height,  # 잘라낼 스프라이트 영역
             0,  # 회전 각도
             '',  # 이미지의 대칭 변환 (''는 변환 없음)
             self.x, self.y,  # 그릴 위치 (x, y)
             self.width, self.height  # 그릴 크기 (width, height)
         )
-        draw_rectangle(*self.get_bb())
+        #draw_rectangle(*self.get_bb())
 
     def get_bb(self):
         # fill here
@@ -44,8 +46,22 @@ class Pot:
 
 
     def update(self, mouse_x, mouse_y):
-        if self.isSelected:
-            pass
+        if self.water:
+            self.timer += 1
+
+            if self.timer > 50:
+                self.current_frame_time += 1
+
+                # 첫 번째 프레임을 길게 표시한 후 나머지 프레임만 반복
+                if self.current_frame_time >= self.frame_duration[self.frame_x]:
+                    # 마지막 프레임인지 확인
+                    if self.frame_x < self.frame_num - 1:
+                        self.frame_x = 1 + (self.frame_x - 1 + 1) % (self.frame_num - 1)
+                    else:
+                        #print('Reached the last frame')  # 디버그용 출력
+                        pass
+
+                    self.current_frame_time = 0  # 지속 시간 초기화
         else:
             self.x = self.origin_x
             self.y = self.origin_y
@@ -64,5 +80,6 @@ class Pot:
             pass
         elif group == 'pot:powder':
             pass
-        elif group == 'pot:kettle':
+        elif group == 'pot:kettle' and other.water == True:
+            self.water = True
             pass

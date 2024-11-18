@@ -26,7 +26,7 @@ class Powder:
             self.x, self.y,  # 그릴 위치 (x, y)
             self.width, self.height  # 그릴 크기 (width, height)
         )
-        draw_rectangle(*self.get_bb())
+        #draw_rectangle(*self.get_bb())
 
     def get_bb(self):
         # fill here
@@ -79,5 +79,6 @@ class Powder:
             self.ramen_x, self.ramen_y = other.x, other.y + 10  # 냄비의 좌표를 저장
         elif group == 'pot:powder' and not self.isSelected2:
             self.OnRamen = False
+            self.ramen_x, self.ramen_y = self.origin_x, self.origin_y
         elif group == 'pot:powder' and self.OnRamen:
             other.powder = True

@@ -50,7 +50,7 @@ class Pot:
     def update(self, mouse_x, mouse_y):
         if not self.make_water and self.water == True:
             water = Water(self.x, self.y, self.powder)
-            game_world.add_object(water,7)
+            game_world.add_object(water,3)
             game_world.add_collision_pair('pot:water', water, None)
             game_world.add_collision_pair('pot:water', None, self)
             print('makeWater')

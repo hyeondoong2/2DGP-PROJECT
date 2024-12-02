@@ -8,7 +8,7 @@ class Powder:
         self.ramen_x, self.ramen_y = 0, 0
         self.origin_x, self.origin_y = self.x, self.y
         self.frame_x = 0
-        self.width, self.height = 113, 119
+        self.width, self.height = 140, 147
         self.isActive = False
         self.isSelected = False
         self.isSelected2 = False
@@ -22,11 +22,11 @@ class Powder:
 
     def draw(self):
         self.image.clip_composite_draw(
-            self.frame_x * 113, 0, self.width, self.height,  # 잘라낼 스프라이트 영역
+            self.frame_x * 140, 0, self.width, self.height,  # 잘라낼 스프라이트 영역
             0,  # 회전 각도
             '',  # 이미지의 대칭 변환 (''는 변환 없음)
             self.x, self.y,  # 그릴 위치 (x, y)
-            self.width * 1.0, self.height * 1.0  # 그릴 크기 (width, height)
+            self.width, self.height  # 그릴 크기 (width, height)
         )
         #draw_rectangle(*self.get_bb())
 
@@ -77,6 +77,9 @@ class Powder:
             self.x = self.origin_x
             self.y = self.origin_y
 
+        if self.frame_x == 4:
+            self.x = self.x - 10
+
         if self.isSelected2:
             self.current_frame_time += 1
 
@@ -88,6 +91,7 @@ class Powder:
                     self.frame_x = 1 + (self.frame_x - 1 + 1) % (self.frame_num - 1)
                 else:
                     # print('Reached the last frame')  # 디버그용 출력
+
                     pass
 
                 self.current_frame_time = 0  # 지속 시간 초기화

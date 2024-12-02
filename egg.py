@@ -5,7 +5,7 @@ import game_framework
 class Egg:
     def __init__(self):
         self.image = load_image('resources/egg_sprite_sheet.png')
-        self.x, self.y = 493, 615
+        self.x, self.y = 493, 614
         self.ramen_x, self.ramen_y = 0, 0
         self.origin_x, self.origin_y = self.x, self.y
         self.bb_x, self.bb_y = 100, 60
@@ -15,6 +15,7 @@ class Egg:
         self.isSelected2 = False
         self.OnRamen = False
         self.frame_num = 7
+        self.size = 1.0
         self.width, self.height = 114, 115
         self.frame_duration = [50, 20, 20, 50, 100, 100, 50]  # 각 프레임에 대해 지속시간 설정 (첫 번째 프레임은 길게 설정)
         self.current_frame_time = 0  # 현재 프레임이 얼마나 지속됐는지 추적
@@ -25,7 +26,7 @@ class Egg:
             0,  # 회전 각도
             '',  # 이미지의 대칭 변환 (''는 변환 없음)
             self.x, self.y,  # 그릴 위치 (x, y)
-            self.width, self.height  # 그릴 크기 (width, height)
+            self.width * self.size * self.size, self.height  # 그릴 크기 (width, height)
         )
         #draw_rectangle(*self.get_bb())
 

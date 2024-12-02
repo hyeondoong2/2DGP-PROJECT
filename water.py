@@ -12,9 +12,10 @@ class Water:
         self.image_width, self.image_height = 114, 89
         self.bb_x, self.bb_y = 30, 30
         self.width, self.height = 114, 89
-        self.frame_num = 14
+        self.frame_num = 15
+        self.repeat_count = 0
         self.isBurning = False
-        self.frame_duration = [100, 100, 100, 3300, 200, 200, 200, 200, 200, 200, 200, 200, 200, 100, 100, 100]  # 각 프레임에 대해 지속시간 설정
+        self.frame_duration = [100, 100, 100, 1000, 200, 200, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]  # 각 프레임에 대해 지속시간 설정
         self.current_frame_time = 0  # 현재 프레임이 얼마나 지속됐는지 추적
 
 
@@ -50,14 +51,19 @@ class Water:
 
         # 첫 번째 프레임을 길게 표시한 후 나머지 프레임만 반복
         if self.current_frame_time >= self.frame_duration[self.frame_x]:
+            self.current_frame_time = 0  # 다음 프레임으로 넘어가기 위해 시간 초기화
 
-            # 마지막 프레임인지 확인
-            if self.frame_x < self.frame_num - 1:
-                self.frame_x = 1 + (self.frame_x - 1 + 1) % (self.frame_num - 1)
+            # 특정 프레임(6~10)을 추가로 반복
+            if self.frame_x == 10 and self.repeat_count == 0:
+                self.frame_x = 6  # 6번 프레임으로 되돌아감
+                self.repeat_count = 1  # 반복 횟수 증가
+            elif  self.frame_x < self.frame_num - 1:
+                # 일반 프레임 처리
+                if self.frame_x < self.frame_num - 1:
+                    self.frame_x = 1 + (self.frame_x - 1 + 1) % (self.frame_num - 1)
             else:
                 # print('Reached the last frame')  # 디버그용 출력
                 pass
-
 
             if self.frame_x == 7 or self.frame_x == 9 or self.frame_x == 10:
                 self.y = self.origin_y - 8
@@ -66,6 +72,7 @@ class Water:
 
             self.current_frame_time = 0  # 지속 시간 초기화
         pass
+
 
     def check_mouseUp(self, up_x, up_y):
         pass

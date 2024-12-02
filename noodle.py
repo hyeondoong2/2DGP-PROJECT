@@ -12,6 +12,7 @@ class Noodle:
         self.isSelected = False
         self.isSelected2 = False
         self.OnRamen = False
+        self.water = False
         self.frame_num = 3
         self.width, self.height = 121, 108
         self.frame_duration = [50, 500, 50]  # 각 프레임에 대해 지속시간 설정 (첫 번째 프레임은 길게 설정)
@@ -74,18 +75,11 @@ class Noodle:
 
         if self.isSelected2:
             self.current_frame_time += 1
+            self.frame_x = 1
 
-            # 첫 번째 프레임을 길게 표시한 후 나머지 프레임만 반복
-            if self.current_frame_time >= self.frame_duration[self.frame_x]:
+        if self.water:
+            self.frame_x = 2
 
-                # 마지막 프레임인지 확인
-                if self.frame_x < self.frame_num - 1:
-                    self.frame_x = 1 + (self.frame_x - 1 + 1) % (self.frame_num - 1)
-                else:
-                    # print('Reached the last frame')  # 디버그용 출력
-                    pass
-
-                self.current_frame_time = 0  # 지속 시간 초기화
         pass
 
     def handle_collision(self, group, other):

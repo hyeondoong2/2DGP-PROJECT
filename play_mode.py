@@ -127,6 +127,7 @@ def init():
     game_world.add_collision_pair('pot:noodle', noodle, None)
     game_world.add_collision_pair('pot:springOnion', springOnion, None)
     game_world.add_collision_pair('pot:kettle', kettle, None)
+    game_world.add_collision_pair('pot:tray', tray, None)
 
     for p in pot:
         game_world.add_collision_pair('pot:egg', None, p)
@@ -134,6 +135,7 @@ def init():
         game_world.add_collision_pair('pot:noodle', None, p)
         game_world.add_collision_pair('pot:springOnion',None, p)
         game_world.add_collision_pair('pot:kettle', None, p)
+        game_world.add_collision_pair('pot:tray', None, p)
 
 
 def finish():

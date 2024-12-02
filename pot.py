@@ -10,6 +10,7 @@ class Pot:
         self.frame_x = 0
         self.image_width, self.image_height = 181, 118
         self.bb_x, self.bb_y = 60, 20
+        self.move_bb_x, self.move_bb_y = 60, 10
         self.width, self.height = 181, 118
         self.price = 0
         self.water = False
@@ -19,10 +20,11 @@ class Pot:
         self.spring_onion = False
         self.isBurnt = burning
         self.isSelected = False
+        self.isSelected2 = False
         self.make_water = False
         self.timer = 0
         self.frame_num = 5
-        self.frame_duration = [5000, 80, 80, 80, 80]  # 각 프레임에 대해 지속시간 설정 (첫 번째 프레임은 길게 설정)
+        self.frame_duration = [2900, 80, 80, 80, 80]  # 각 프레임에 대해 지속시간 설정 (첫 번째 프레임은 길게 설정)
         self.current_frame_time = 0  # 현재 프레임이 얼마나 지속됐는지 추적
 
 
@@ -34,18 +36,25 @@ class Pot:
             self.x, self.y,  # 그릴 위치 (x, y)
             self.width, self.height  # 그릴 크기 (width, height)
         )
-        #draw_rectangle(*self.get_bb())
+        draw_rectangle(*self.get_bb())
+        draw_rectangle(*self.get_move_bb())
 
     def get_bb(self):
-        # fill here
         return self.x - self.bb_x, self.y - self.bb_y + 20, self.x + self.bb_x, self.y + self.bb_y + 20
+
+    def get_move_bb(self):
+        return (self.x - self.move_bb_x, self.y - self.move_bb_y - 50,
+                self.x + self.move_bb_x, self.y + self.bb_y - 50)
+        pass
 
     def check(self, click_x, click_y):
         # 마우스가 영역에 들어갔는지 확인
         if self.isBurnt:
             self.isSelected = (self.origin_x - self.width // 2 <= click_x <= self.origin_x + self.width // 2 and
                                self.origin_y - self.height // 2 <= click_y <= self.origin_y + self.height // 2)
-
+            self.isSelected2 = (self.origin_x - self.width // 2 <= click_x <= self.origin_x + self.width // 2 and
+                               self.origin_y - self.height // 2 <= click_y <= self.origin_y + self.height // 2)
+        pass
 
     def update(self, mouse_x, mouse_y):
         if not self.make_water and self.water == True:
@@ -85,6 +94,8 @@ class Pot:
         if group == 'pot:egg':
             pass
         elif group == 'pot:noodle':
+            if self.water:
+                other.water = True
             pass
         elif group == 'pot:springOnion':
             pass

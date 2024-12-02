@@ -4,7 +4,7 @@ import game_framework
 
 class Kettle:
     def __init__(self):
-        self.image = load_image('kettle_sprite_sheet.png')
+        self.image = load_image('resources/kettle_sprite_sheet.png')
         self.x, self.y = 840, 450
         self.ramen_x, self.ramen_y = 0, 0
         self.origin_x, self.origin_y = self.x, self.y

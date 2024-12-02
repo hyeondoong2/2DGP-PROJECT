@@ -2,7 +2,7 @@ from pico2d import load_image
 
 class Fire:
     def __init__(self, x, y):
-        self.image = load_image('fire.png')
+        self.image = load_image('resources/fire.png')
         self.x, self.y = x, y
         self.frame_x = 0
         self.width, self.height = 100, 100

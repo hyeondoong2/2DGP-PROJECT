@@ -2,7 +2,7 @@ from pico2d import load_image
 
 class Ramen:
     def __init__(self):
-        self.image = load_image('pot.png')
+        self.image = load_image('resources/pot.png')
         self.price = 0
         self.water = False
         self.egg = False

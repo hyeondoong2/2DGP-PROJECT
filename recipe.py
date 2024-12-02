@@ -8,16 +8,16 @@ class Recipe:
         self.goLeft = False
         self.goRight = False
         if self.type == 0:
-            self.image = load_image('recipe1.png')
+            self.image = load_image('resources/recipe1.png')
             pass
         elif self.type == 1:
-            self.image = load_image('recipe2.png')
+            self.image = load_image('resources/recipe2.png')
             pass
         elif self.type == 2:
-            self.image = load_image('recipe3.png')
+            self.image = load_image('resources/recipe3.png')
             pass
         elif self.type ==3:
-            self.image = load_image('recipe4.png')
+            self.image = load_image('resources/recipe4.png')
             pass
         self.x, self.y = 1800, 600
 

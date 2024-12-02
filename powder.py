@@ -3,7 +3,7 @@ import game_world
 
 class Powder:
     def __init__(self):
-        self.image = load_image('powder_sprite_sheet.png')
+        self.image = load_image('resources/powder_sprite_sheet.png')
         self.x, self.y = 270, 830
         self.ramen_x, self.ramen_y = 0, 0
         self.origin_x, self.origin_y = self.x, self.y

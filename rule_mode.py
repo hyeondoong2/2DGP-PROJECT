@@ -30,7 +30,7 @@ def init():
 
     gameStart.x, gameStart.y = 1400, 170
 
-    image = load_image('rule_background.png')
+    image = load_image('resources/rule_background.png')
 
 
 def finish():

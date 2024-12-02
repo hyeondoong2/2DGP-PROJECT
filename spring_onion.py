@@ -3,7 +3,7 @@ import game_world
 
 class SpringOnion:
     def __init__(self):
-        self.image = load_image('spring_onion.png')
+        self.image = load_image('resources/spring_onion.png')
         self.x, self.y = 520, 820
         self.origin_x, self.origin_y = self.x, self.y
         self.bb_x, self.bb_y = 100, 60

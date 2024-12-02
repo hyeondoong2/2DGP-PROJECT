@@ -2,9 +2,9 @@ from pico2d import *
 
 class Mom:
     def __init__(self):
-        self.mama_image = load_image('mama.png')
-        self.mama_angry_image = load_image('mama_angry.png')
-        self.mama_happy_image = load_image('mama_happy.png')
+        self.mama_image = load_image('resources/mama.png')
+        self.mama_angry_image = load_image('resources/mama_angry.png')
+        self.mama_happy_image = load_image('resources/mama_happy.png')
         self.frame_x = 0
         self.x, self.y = 1280, 300  # 중심 좌표
         self.width, self.height = 800, 700 # 크기

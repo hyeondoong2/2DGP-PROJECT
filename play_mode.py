@@ -22,7 +22,7 @@ up_x, up_y = 0, 0
 
 class Game:
     def __init__(self):
-        self.font = load_font("UhBee Seulvely.ttf", 50)
+        self.font = load_font("resources/UhBee Seulvely.ttf", 50)
         self.money = 0
 
     def draw(self):

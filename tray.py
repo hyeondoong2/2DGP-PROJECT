@@ -2,7 +2,7 @@ from pico2d import load_image
 
 class Tray:
     def __init__(self):
-        self.image = load_image('tray.png')
+        self.image = load_image('resources/tray.png')
 
     def draw(self):
         self.image.draw(1250, 450)

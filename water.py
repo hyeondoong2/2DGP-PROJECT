@@ -4,8 +4,8 @@ import game_world
 class Water:
     def __init__(self, x, y, powder):
         self.powder = powder
-        self.image1 = load_image('water_sprite_sheet.png')
-        self.image2 = load_image('water_sprite_sheet2.png')
+        self.image1 = load_image('resources/water_sprite_sheet.png')
+        self.image2 = load_image('resources/water_sprite_sheet2.png')
         self.x, self.y = x, y + 20
         self.origin_x, self.origin_y =  x, y + 20
         self.frame_x = 0

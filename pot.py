@@ -4,7 +4,7 @@ from water import Water
 
 class Pot:
     def __init__(self, x, y, burning):
-        self.image = load_image('pot.png')
+        self.image = load_image('resources/pot.png')
         self.x, self.y = x, y
         self.origin_x, self.origin_y = x, y
         self.frame_x = 0

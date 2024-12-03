@@ -72,7 +72,7 @@ class Kettle:
 
                     self.current_frame_time = 0  # 지속 시간 초기화
 
-            else:  # 타이머가 500을 초과하면 프레임 멈춤
+            else:  # 타이머가 300을 초과하면 프레임 멈춤
                 # 상태 초기화
                 self.isSelected2 = False
                 self.OnRamen = False
@@ -91,11 +91,13 @@ class Kettle:
         pass
 
     def handle_collision(self, group, other):
-        if group == 'pot:kettle' and self.isSelected2 and other.isMoving == False:
+        if (group == 'pot:kettle' and self.isSelected2
+            and other.isMoving == False and other.isBurnt == False):
             self.OnRamen = True
             self.ramen_x, self.ramen_y = other.x + 50, other.y + 70  # 냄비의 좌표를 저장
             other.water = True
-        elif group == 'pot:kettle' and not self.isSelected2 and other.isMoving == False:
+        elif (group == 'pot:kettle' and not self.isSelected2
+              and other.isMoving == False and other.isBurnt == False):
             self.OnRamen = True
             self.ramen_x, self.ramen_y = other.x + 50, other.y + 70  # 냄비의 좌표를 저장
             other.water = False

@@ -99,7 +99,8 @@ class Powder:
 
     def handle_collision(self, group, other):
         if (group == 'pot:powder' and not self.isSelected2
-            and other.powder == False and other.isMoving == False):
+            and other.powder == False and other.isMoving == False
+            and other.isBurnt == False):
             self.OnRamen = True
             self.ramen_x, self.ramen_y = other.x + 40, other.y + 70  # 냄비의 좌표를 저장
         elif group == 'pot:powder' and not self.isSelected2:

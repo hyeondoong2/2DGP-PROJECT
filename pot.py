@@ -5,7 +5,7 @@ from egg import Egg
 from noodle import Noodle
 
 class Pot:
-    def __init__(self, x, y, burning):
+    def __init__(self, x, y, boiling):
         self.image = load_image('resources/pot.png')
         self.x, self.y = x, y
         self.origin_x, self.origin_y = x, y
@@ -20,11 +20,12 @@ class Pot:
         self.noodle = False
         self.powder = False
         self.spring_onion = False
-        self.isBurnt = burning
+        self.isBoiling = boiling
         self.isSelected = False
         self.isSelected2 = False
         self.make_water = False
         self.isMoving = False
+        self.isBurnt = False
         self.timer = 0
         self.frame_num = 5
         self.frame_duration = [2900, 80, 80, 80, 80]  # 각 프레임에 대해 지속시간 설정 (첫 번째 프레임은 길게 설정)
@@ -52,7 +53,7 @@ class Pot:
 
     def check(self, click_x, click_y):
         # 마우스가 영역에 들어갔는지 확인
-        if self.isBurnt:
+        if self.isBoiling:
             self.isSelected = (self.origin_x - self.width // 2 <= click_x <= self.origin_x + self.width // 2 and
                                self.origin_y - self.height // 2 <= click_y <= self.origin_y + self.height // 2)
 
@@ -67,7 +68,7 @@ class Pot:
             game_world.add_object(water,3)
             game_world.add_collision_pair('pot:water', water, None)
             game_world.add_collision_pair('pot:water', None, self)
-            print('makeWater')
+            #print('makeWater')
             self.make_water = True
 
         if self.water:
@@ -81,6 +82,8 @@ class Pot:
                     # 마지막 프레임인지 확인
                     if self.frame_x < self.frame_num - 1:
                         self.frame_x = 1 + (self.frame_x - 1 + 1) % (self.frame_num - 1)
+                    elif self.frame_x > 2:
+                        self.isBurnt = True
                     else:
                         #print('Reached the last frame')  # 디버그용 출력
                         pass

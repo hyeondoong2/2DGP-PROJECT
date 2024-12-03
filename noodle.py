@@ -77,14 +77,15 @@ class Noodle:
             self.current_frame_time += 1
             self.frame_x = 1
 
-        if self.water:
+        if self.water and self.isSelected2:
             self.frame_x = 2
 
         pass
 
     def handle_collision(self, group, other):
         if (group == 'pot:noodle' and not self.isSelected2
-            and other.noodle == False and other.isMoving == False):
+            and other.noodle == False and other.isMoving == False
+            and other.isBurnt == False):
             self.OnRamen = True
             self.ramen_x, self.ramen_y = other.x, other.y + 10  # 냄비의 좌표를 저장
         elif group == 'pot:noodle' and not self.isSelected2 and other.isMoving == False:

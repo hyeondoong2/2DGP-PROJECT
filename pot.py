@@ -1,6 +1,8 @@
 from pico2d import load_image, draw_rectangle
 import game_world
 from water import Water
+from egg import Egg
+from noodle import Noodle
 
 class Pot:
     def __init__(self, x, y, burning):
@@ -22,6 +24,7 @@ class Pot:
         self.isSelected = False
         self.isSelected2 = False
         self.make_water = False
+        self.isMoving = False
         self.timer = 0
         self.frame_num = 5
         self.frame_duration = [2900, 80, 80, 80, 80]  # 각 프레임에 대해 지속시간 설정 (첫 번째 프레임은 길게 설정)
@@ -52,8 +55,10 @@ class Pot:
         if self.isBurnt:
             self.isSelected = (self.origin_x - self.width // 2 <= click_x <= self.origin_x + self.width // 2 and
                                self.origin_y - self.height // 2 <= click_y <= self.origin_y + self.height // 2)
-            self.isSelected2 = (self.origin_x - self.width // 2 <= click_x <= self.origin_x + self.width // 2 and
-                               self.origin_y - self.height // 2 <= click_y <= self.origin_y + self.height // 2)
+
+            left, bottom, right, top = self.get_move_bb()
+
+            self.isSelected2 = left <= click_x <= right and bottom <= click_y <= top
         pass
 
     def update(self, mouse_x, mouse_y):
@@ -84,6 +89,11 @@ class Pot:
         else:
             self.x = self.origin_x
             self.y = self.origin_y
+            self.isMoving = False
+
+        if self.isSelected2:
+            self.x, self.y = mouse_x, mouse_y
+            self.isMoving = True
 
         pass
 

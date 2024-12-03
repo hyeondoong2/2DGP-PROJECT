@@ -83,11 +83,12 @@ class Noodle:
         pass
 
     def handle_collision(self, group, other):
-        if group == 'pot:noodle' and not self.isSelected2 and other.noodle == False:
+        if (group == 'pot:noodle' and not self.isSelected2
+            and other.noodle == False and other.isMoving == False):
             self.OnRamen = True
             self.ramen_x, self.ramen_y = other.x, other.y + 10  # 냄비의 좌표를 저장
-        elif group == 'pot:noodle' and not self.isSelected2:
+        elif group == 'pot:noodle' and not self.isSelected2 and other.isMoving == False:
             self.OnRamen = False
             self.ramen_x, self.ramen_y = self.origin_x, self.origin_y
-        elif group == 'pot:noodle' and self.OnRamen:
+        elif group == 'pot:noodle' and self.OnRamen and other.isMoving == False:
             other.noodle = True

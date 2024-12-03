@@ -71,7 +71,8 @@ class SpringOnion:
         pass
 
     def handle_collision(self, group, other):
-        if group == 'pot:springOnion' and not self.isSelected2 and other.spring_onion == False:
+        if (group == 'pot:springOnion' and not self.isSelected2
+            and other.spring_onion == False and other.isMoving == False):
             self.OnRamen = True
             self.ramen_x, self.ramen_y = other.x, other.y + 10  # 냄비의 좌표를 저장
         elif group == 'pot:springOnion' and not self.isSelected2:

@@ -96,7 +96,8 @@ class Egg:
         pass
 
     def handle_collision(self, group, other):
-        if group == 'pot:egg' and not self.isSelected2 and other.egg == False:
+        if (group == 'pot:egg' and not self.isSelected2
+            and other.egg == False and other.isMoving == False):
             self.OnRamen = True
             self.ramen_x, self.ramen_y = other.x, other.y + 50  # 냄비의 좌표를 저장
         elif group == 'pot:egg' and not self.isSelected2:

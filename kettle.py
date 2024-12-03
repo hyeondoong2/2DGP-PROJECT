@@ -91,11 +91,11 @@ class Kettle:
         pass
 
     def handle_collision(self, group, other):
-        if group == 'pot:kettle' and self.isSelected2:
+        if group == 'pot:kettle' and self.isSelected2 and other.isMoving == False:
             self.OnRamen = True
             self.ramen_x, self.ramen_y = other.x + 50, other.y + 70  # 냄비의 좌표를 저장
             other.water = True
-        elif group == 'pot:kettle' and not self.isSelected2:
+        elif group == 'pot:kettle' and not self.isSelected2 and other.isMoving == False:
             self.OnRamen = True
             self.ramen_x, self.ramen_y = other.x + 50, other.y + 70  # 냄비의 좌표를 저장
             other.water = False

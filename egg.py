@@ -14,6 +14,8 @@ class Egg:
         self.isSelected = False
         self.isSelected2 = False
         self.OnRamen = False
+        self.isMoving = False
+        self.attached_pot = None
         self.frame_num = 7
         self.size = 1.0
         self.width, self.height = 114, 115
@@ -66,7 +68,10 @@ class Egg:
 
 
     def update(self, mouse_x, mouse_y):
-        if self.isSelected2:  # 냄비 위에서 고정된 상태
+        if self.attached_pot:  # 냄비에 연결된 경우
+            self.x, self.y = self.attached_pot.x, self.attached_pot.y
+
+        elif self.isSelected2:  # 냄비 위에서 고정된 상태
             self.x = self.ramen_x
             self.y = self.ramen_y
         elif self.isSelected:  # 마우스로 드래그 중인 상태
@@ -75,6 +80,10 @@ class Egg:
         else:  # 원래 자리로 복귀
             self.x = self.origin_x
             self.y = self.origin_y
+
+        if self.isMoving:
+            self.x = mouse_x
+            self.y = mouse_y + 50
 
         if self.isSelected2:
             self.current_frame_time += 1
@@ -101,8 +110,7 @@ class Egg:
             and other.isBurnt == False):
             self.OnRamen = True
             self.ramen_x, self.ramen_y = other.x, other.y + 50  # 냄비의 좌표를 저장
+            other.egg = True
         elif group == 'pot:egg' and not self.isSelected2:
             self.OnRamen = False
             self.ramen_x, self.ramen_y = self.origin_x, self.origin_y
-        elif group == 'pot:egg' and self.OnRamen:
-            other.egg = True

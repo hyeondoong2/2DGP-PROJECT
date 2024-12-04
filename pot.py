@@ -26,6 +26,7 @@ class Pot:
         self.make_water = False
         self.isMoving = False
         self.isBurnt = False
+        self.ingredients = []
         self.timer = 0
         self.frame_num = 5
         self.frame_duration = [2900, 80, 80, 80, 80]  # 각 프레임에 대해 지속시간 설정 (첫 번째 프레임은 길게 설정)
@@ -96,6 +97,8 @@ class Pot:
 
         if self.isSelected2:
             self.x, self.y = mouse_x, mouse_y
+            for ingredient in self.ingredients:  # 연결된 재료들도 함께 움직임
+                ingredient.x, ingredient.y = self.x, self.y
             self.isMoving = True
 
         pass
@@ -105,6 +108,8 @@ class Pot:
 
     def handle_collision(self, group, other):
         if group == 'pot:egg':
+            if self.isMoving:
+                other.isMoving = True
             pass
         elif group == 'pot:noodle':
             if self.water:

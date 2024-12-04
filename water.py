@@ -15,6 +15,7 @@ class Water:
         self.frame_num = 15
         self.repeat_count = 0
         self.isBurning = False
+        self.attached_pot = None
         self.frame_duration = [100, 100, 100, 1000, 200, 200, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]  # 각 프레임에 대해 지속시간 설정
         self.current_frame_time = 0  # 현재 프레임이 얼마나 지속됐는지 추적
 
@@ -47,6 +48,9 @@ class Water:
         pass
 
     def update(self, mouse_x, mouse_y):
+        if self.attached_pot:  # 냄비에 연결된 경우
+            self.x, self.y = self.attached_pot.x, self.attached_pot.y
+
         self.current_frame_time += 1
 
         # 첫 번째 프레임을 길게 표시한 후 나머지 프레임만 반복

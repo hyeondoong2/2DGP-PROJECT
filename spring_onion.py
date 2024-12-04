@@ -12,6 +12,7 @@ class SpringOnion:
         self.isSelected = False
         self.isSelected2 = False
         self.OnRamen = False
+        self.attached_pot = None
         self.width, self.height = 152, 88
         self.frame_duration = [50, 50]  # 각 프레임에 대해 지속시간 설정 (첫 번째 프레임은 길게 설정)
         self.current_frame_time = 0  # 현재 프레임이 얼마나 지속됐는지 추적
@@ -59,7 +60,9 @@ class SpringOnion:
             pass
 
     def update(self, mouse_x, mouse_y):
-        if self.isSelected2:  # 냄비 위에서 고정된 상태
+        if self.attached_pot:  # 냄비에 연결된 경우
+            self.x, self.y = self.attached_pot.x, self.attached_pot.y
+        elif self.isSelected2:  # 냄비 위에서 고정된 상태
             self.x = self.ramen_x
             self.y = self.ramen_y
         elif self.isSelected:  # 마우스로 드래그 중인 상태

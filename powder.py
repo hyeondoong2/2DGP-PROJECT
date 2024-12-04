@@ -13,6 +13,7 @@ class Powder:
         self.isSelected = False
         self.isSelected2 = False
         self.OnRamen = False
+        self.attached_pot = None
         self.frame_num = 5
         self.bb_x, self.bb_y = 100, 60
         self.adjust_x, self.adjust_y = 0, 0
@@ -67,7 +68,9 @@ class Powder:
             pass
 
     def update(self, mouse_x, mouse_y):
-        if self.isSelected2:  # 냄비 위에서 고정된 상태
+        if self.attached_pot:  # 냄비에 연결된 경우
+            self.x, self.y = self.attached_pot.x, self.attached_pot.y
+        elif self.isSelected2:  # 냄비 위에서 고정된 상태
             self.x = self.ramen_x
             self.y = self.ramen_y
         elif self.isSelected:  # 마우스로 드래그 중인 상태

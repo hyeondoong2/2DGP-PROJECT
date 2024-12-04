@@ -96,11 +96,10 @@ class Kettle:
             self.OnRamen = True
             self.ramen_x, self.ramen_y = other.x + 50, other.y + 70  # 냄비의 좌표를 저장
             other.water = True
-        elif (group == 'pot:kettle' and not self.isSelected2
+        elif (group == 'pot:kettle' and  not self.isSelected2
               and other.isMoving == False and other.isBurnt == False):
             self.OnRamen = True
             self.ramen_x, self.ramen_y = other.x + 50, other.y + 70  # 냄비의 좌표를 저장
-            other.water = False
         elif group == 'pot:kettle':
             self.OnRamen = False
             self.ramen_x, self.ramen_y = self.origin_x, self.origin_y

@@ -12,7 +12,7 @@ class Pot:
         self.frame_x = 0
         self.image_width, self.image_height = 181, 118
         self.bb_x, self.bb_y = 60, 20
-        self.move_bb_x, self.move_bb_y = 60, 10
+        self.move_bb_x, self.move_bb_y = 20, 5
         self.width, self.height = 181, 118
         self.price = 0
         self.water = False
@@ -47,8 +47,8 @@ class Pot:
         return self.x - self.bb_x, self.y - self.bb_y + 20, self.x + self.bb_x, self.y + self.bb_y + 20
 
     def get_move_bb(self):
-        return (self.x - self.move_bb_x, self.y - self.move_bb_y - 50,
-                self.x + self.move_bb_x, self.y + self.bb_y - 50)
+        return (self.x - self.move_bb_x, self.y - self.move_bb_y - 60,
+                self.x + self.move_bb_x, self.y + self.bb_y - 60)
         pass
 
     def check(self, click_x, click_y):

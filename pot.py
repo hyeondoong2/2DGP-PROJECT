@@ -1,5 +1,6 @@
 from pico2d import load_image, draw_rectangle
 import game_world
+import play_mode
 from water import Water
 from egg import Egg
 from noodle import Noodle
@@ -14,7 +15,7 @@ class Pot:
         self.bb_x, self.bb_y = 60, 30
         self.move_bb_x, self.move_bb_y = 20, 10
         self.width, self.height = 181, 118
-        self.price = 0
+        self.price = 1000
         self.water = False
         self.egg = False
         self.noodle = False
@@ -90,7 +91,7 @@ class Pot:
                 ingredient.x, ingredient.y = self.x, self.y
 
 
-        if self.water:
+        if self.water and not self.isMoving:
             self.timer += 1
 
             if self.timer > 0:
@@ -144,7 +145,15 @@ class Pot:
                 other.powder = True
             else:
                 other.powder = False
+
+            if self.isMoving:
+                other.isMoving = True
+            else:
+                other.isMoving = False
             pass
         elif group == 'pot:kettle' and other.water:
             self.water = True
+            pass
+        elif group == 'pot:tray':
+            play_mode.check_score(self, None)
             pass

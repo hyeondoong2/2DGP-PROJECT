@@ -1,4 +1,5 @@
 from pico2d import load_image, draw_rectangle
+import game_world
 
 class Tray:
     def __init__(self):
@@ -27,4 +28,5 @@ class Tray:
         pass
 
     def handle_collision(self, group, other):
+
         pass

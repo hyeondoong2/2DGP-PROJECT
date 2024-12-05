@@ -142,6 +142,41 @@ def finish():
     game_world.clear()
     pass
 
+def check_score(pot, recipe):
+    if (pot.isBurnt or pot.water == False
+        or pot.noodle == False or pot.powder == False):
+        pot.price = 0
+        game.money += pot.price
+    elif recipe.type == 0:
+        # 파o, 계란o
+        if not pot.spring_onion:
+            pot.price -= 250
+        if not pot.egg:
+            pot.price -= 250
+            pass
+        game.money += pot.price
+    elif recipe.type == 1:
+        # 파x, 계란 x
+        if pot.spring_onion:
+            pot.price -= 250
+        if pot.egg:
+            pot.price -= 250
+            pass
+        game.money += pot.price
+    elif recipe.type == 2:
+        # 계란 x
+        if pot.egg:
+            pot.price -= 500
+            pass
+        game.money += pot.price
+    elif recipe.type == 3:
+        # 파 x
+        if pot.spring_onion:
+            pot.price -= 500
+            pass
+        game.money += pot.price
+    pass
+
 
 def update():
     game_world.update(mouse_x, mouse_y)

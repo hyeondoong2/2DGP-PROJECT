@@ -30,7 +30,7 @@ class Egg:
             self.x, self.y,  # 그릴 위치 (x, y)
             self.width * self.size * self.size, self.height  # 그릴 크기 (width, height)
         )
-        draw_rectangle(*self.get_bb())
+        #draw_rectangle(*self.get_bb())
 
     def get_bb(self):
         # fill here

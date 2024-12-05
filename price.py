@@ -24,6 +24,9 @@ class Price:
         elif self.type == 4:
             self.image = load_image('resources/price4.png')
             pass
+        elif self.type == 5:
+            self.image = load_image('resources/price5.png')
+            pass
         self.x, self.y = 1800, 600
 
 

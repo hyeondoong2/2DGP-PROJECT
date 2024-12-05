@@ -29,7 +29,7 @@ class Noodle:
             self.x, self.y,  # 그릴 위치 (x, y)
             self.width, self.height  # 그릴 크기 (width, height)
         )
-        draw_rectangle(*self.get_bb())
+        #draw_rectangle(*self.get_bb())
 
     def get_bb(self):
         # fill here
@@ -93,7 +93,7 @@ class Noodle:
     def handle_collision(self, group, other):
         if (group == 'pot:noodle' and not self.isSelected2
                 and other.noodle == False and other.isMoving == False
-                and other.isBurnt == False and self.OnRamen == False):
+                and other.isBurnt == False):
             self.OnRamen = True
             self.ramen_x, self.ramen_y = other.x, other.y + 10  # 냄비의 좌표를 저장
         elif group == 'pot:noodle' and not self.isSelected2 and other.isMoving == False:

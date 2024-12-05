@@ -108,7 +108,6 @@ def init():
     ]
 
 
-
     game_world.add_object(kitchen, 0)
     game_world.add_object(tray, 0)
     game_world.add_objects(fire, 1)
@@ -172,11 +171,15 @@ def check_score(pot):
         # 계란 x
         if pot.egg:
             pot.price -= 500
+        if not pot.spring_onion:
+            pot.price -= 200
         game.money += pot.price
     elif recipe.type == 3:
         # 파 x
         if pot.spring_onion:
             pot.price -= 500
+        if not pot.egg:
+            pot.price -= 200
         game.money += pot.price
 
     if pot.price == 1000:
@@ -188,6 +191,9 @@ def check_score(pot):
     elif pot.price == 500:
         price = Price(4, pot.price)
         game_world.add_object(price, 9)
+    elif pot.price == 300:
+        price = Price(5, pot.price)
+        game_world.add_object(price, 9)
 
     # 현재 recipe 제거
     game_world.remove_object(recipe)
@@ -196,6 +202,14 @@ def check_score(pot):
     recipe = Recipe(random.randint(0, 3))  # 새로운 레시피 생성
     game_world.add_object(recipe, 8)  # 새로운 레시피를 게임 월드에 추가
     pass
+
+def get_temporary_pot():
+    global temporary_pot
+    if temporary_pot:  # 리스트가 비어있지 않은 경우
+        return temporary_pot.pop(0)  # 가장 앞의 냄비를 반환하고 리스트에서 제거
+    else:
+        print("No temporary pots available!")
+        return None
 
 
 def update():

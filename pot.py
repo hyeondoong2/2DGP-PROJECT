@@ -46,8 +46,8 @@ class Pot:
             self.x, self.y,  # 그릴 위치 (x, y)
             self.width, self.height  # 그릴 크기 (width, height)
         )
-        draw_rectangle(*self.get_bb())
-        draw_rectangle(*self.get_move_bb())
+        #draw_rectangle(*self.get_bb())
+        #draw_rectangle(*self.get_move_bb())
 
     def get_bb(self):
         return self.x - self.bb_x, self.y - self.bb_y + 20, self.x + self.bb_x, self.y + self.bb_y + 20
@@ -126,7 +126,19 @@ class Pot:
                 self.frame_num = 5
                 self.current_frame_time = 0  # 현재 프레임이 얼마나 지속됐는지 추적
             elif self.x > 1700 and self.isBurnt:
-                game_world.remove_object(self)
+                pot = play_mode.get_temporary_pot()
+                if pot:
+                    pot.x, pot.y = self.origin_x, self.origin_y
+                    pot.origin_x, pot.origin_y = self.origin_x, self.origin_y
+                    pot.isBoiling = True
+                    game_world.add_collision_pair('pot:egg', None, pot)
+                    game_world.add_collision_pair('pot:powder', None, pot)
+                    game_world.add_collision_pair('pot:noodle', None, pot)
+                    game_world.add_collision_pair('pot:springOnion', None, pot)
+                    game_world.add_collision_pair('pot:kettle', None, pot)
+                    game_world.add_collision_pair('pot:tray', None, pot)
+                    game_world.remove_object(self)
+
 
 
         else:

@@ -69,7 +69,7 @@ class Powder:
 
     def update(self, mouse_x, mouse_y):
         if self.attached_pot:  # 냄비에 연결된 경우
-            self.x, self.y = self.attached_pot.x, self.attached_pot.y
+            self.x, self.y = self.attached_pot.x + 40, self.attached_pot.y + 70
         elif self.isSelected2:  # 냄비 위에서 고정된 상태
             self.x = self.ramen_x
             self.y = self.ramen_y
@@ -109,5 +109,7 @@ class Powder:
         elif group == 'pot:powder' and not self.isSelected2:
             self.OnRamen = False
             self.ramen_x, self.ramen_y = self.origin_x, self.origin_y
-        elif group == 'pot:powder' and self.OnRamen:
+        elif group == 'pot:powder' and other.isMoving == False and self.attached_pot == None:
             other.powder = True
+            other.attach_ingredient(self)
+            self.attached_pot = other

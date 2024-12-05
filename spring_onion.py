@@ -79,7 +79,11 @@ class SpringOnion:
             and other.isBurnt == False):
             self.OnRamen = True
             self.ramen_x, self.ramen_y = other.x, other.y + 10  # 냄비의 좌표를 저장
+
         elif group == 'pot:springOnion' and not self.isSelected2:
             self.OnRamen = False
-        elif group == 'pot:springOnion' and self.OnRamen:
+        elif group == 'pot:springOnion' and self.OnRamen and other.isMoving == False\
+                and self.attached_pot == None:
             other.spring_onion = True
+            other.attach_ingredient(self)
+            self.attached_pot = other

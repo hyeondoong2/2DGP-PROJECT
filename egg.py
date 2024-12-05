@@ -8,7 +8,7 @@ class Egg:
         self.x, self.y = 493, 614
         self.ramen_x, self.ramen_y = 0, 0
         self.origin_x, self.origin_y = self.x, self.y
-        self.bb_x, self.bb_y = 100, 60
+        self.bb_x, self.bb_y = 100, 40
         self.adjust_x, self.adjust_y = 30, 60
         self.frame_x = 0
         self.isSelected = False
@@ -30,7 +30,7 @@ class Egg:
             self.x, self.y,  # 그릴 위치 (x, y)
             self.width * self.size * self.size, self.height  # 그릴 크기 (width, height)
         )
-        #draw_rectangle(*self.get_bb())
+        draw_rectangle(*self.get_bb())
 
     def get_bb(self):
         # fill here
@@ -57,7 +57,7 @@ class Egg:
             self.bb_x, self.bb_y = 20, 20
             self.adjust_x, self.adjust_y = 0, 0
         elif not self.isSelected:
-            self.bb_x, self.bb_y = 100, 60
+            self.bb_x, self.bb_y = 100, 40
             self.adjust_x, self.adjust_y = 30, 60
 
     def check_mouseUp(self, up_x, up_y):
@@ -69,7 +69,7 @@ class Egg:
 
     def update(self, mouse_x, mouse_y):
         if self.attached_pot:  # 냄비에 연결된 경우
-            self.x, self.y = self.attached_pot.x, self.attached_pot.y
+            self.x, self.y = self.attached_pot.x, self.attached_pot.y + 50
 
         elif self.isSelected2:  # 냄비 위에서 고정된 상태
             self.x = self.ramen_x
@@ -77,13 +77,9 @@ class Egg:
         elif self.isSelected:  # 마우스로 드래그 중인 상태
             self.x = mouse_x
             self.y = mouse_y
-        else:  # 원래 자리로 복귀
+        else:
             self.x = self.origin_x
             self.y = self.origin_y
-
-        if self.isMoving:
-            self.x = mouse_x
-            self.y = mouse_y + 50
 
         if self.isSelected2:
             self.current_frame_time += 1
@@ -98,19 +94,24 @@ class Egg:
                     self.adjust_x, self.adjust_y = 0, -50
                     # print('Reached the last frame')  # 디버그용 출력
                     pass
-
-
-
                 self.current_frame_time = 0  # 지속 시간 초기화
         pass
 
     def handle_collision(self, group, other):
         if (group == 'pot:egg' and not self.isSelected2
-            and other.egg == False and other.isMoving == False
-            and other.isBurnt == False):
+                and other.egg == False and other.isMoving == False
+                and other.isBurnt == False):
             self.OnRamen = True
             self.ramen_x, self.ramen_y = other.x, other.y + 50  # 냄비의 좌표를 저장
-            other.egg = True
-        elif group == 'pot:egg' and not self.isSelected2:
+        elif group == 'pot:egg' and not self.isSelected2 and other.isMoving == False:
             self.OnRamen = False
             self.ramen_x, self.ramen_y = self.origin_x, self.origin_y
+        elif (group == 'pot:egg' and self.OnRamen and other.isMoving == False
+                and self.attached_pot == None):
+            other.egg = True
+            other.attach_ingredient(self)
+            self.attached_pot = other
+            pass
+
+
+

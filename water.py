@@ -49,7 +49,9 @@ class Water:
 
     def update(self, mouse_x, mouse_y):
         if self.attached_pot:  # 냄비에 연결된 경우
-            self.x, self.y = self.attached_pot.x, self.attached_pot.y
+            self.x, self.y = self.attached_pot.x, self.attached_pot.y + 20
+            if self.frame_x == 7 or self.frame_x == 9 or self.frame_x == 10:
+                self.y = self.y - 8
 
         self.current_frame_time += 1
 
@@ -61,7 +63,7 @@ class Water:
             if self.frame_x == 10 and self.repeat_count == 0:
                 self.frame_x = 6  # 6번 프레임으로 되돌아감
                 self.repeat_count = 1  # 반복 횟수 증가
-            elif  self.frame_x < self.frame_num - 1:
+            elif self.frame_x < self.frame_num - 1:
                 # 일반 프레임 처리
                 if self.frame_x < self.frame_num - 1:
                     self.frame_x = 1 + (self.frame_x - 1 + 1) % (self.frame_num - 1)
@@ -82,5 +84,8 @@ class Water:
         pass
 
     def handle_collision(self, group, other):
+        if group == 'pot:water' and other.isMoving == False and self.attached_pot == None :
+            other.attach_ingredient(self)
+            self.attached_pot = other
         pass
 

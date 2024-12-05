@@ -11,8 +11,8 @@ class Pot:
         self.origin_x, self.origin_y = x, y
         self.frame_x = 0
         self.image_width, self.image_height = 181, 118
-        self.bb_x, self.bb_y = 60, 20
-        self.move_bb_x, self.move_bb_y = 20, 5
+        self.bb_x, self.bb_y = 60, 30
+        self.move_bb_x, self.move_bb_y = 20, 10
         self.width, self.height = 181, 118
         self.price = 0
         self.water = False
@@ -49,8 +49,20 @@ class Pot:
 
     def get_move_bb(self):
         return (self.x - self.move_bb_x, self.y - self.move_bb_y - 60,
-                self.x + self.move_bb_x, self.y + self.bb_y - 60)
+                self.x + self.move_bb_x, self.y + self.move_bb_y - 60)
         pass
+
+    def attach_ingredient(self, ingredient):
+        # 재료를 냄비에 추가
+        if ingredient not in self.ingredients:
+            self.ingredients.append(ingredient)
+            ingredient.attached_pot = self  # 재료에 냄비를 연결
+
+    def detach_ingredient(self, ingredient):
+        # 재료를 냄비에서 제거
+        if ingredient in self.ingredients:
+            self.ingredients.remove(ingredient)
+            ingredient.attached_pot = None  # 재료의 냄비 연결 해제
 
     def check(self, click_x, click_y):
         # 마우스가 영역에 들어갔는지 확인
@@ -72,6 +84,12 @@ class Pot:
             #print('makeWater')
             self.make_water = True
 
+        if self.isMoving:  # 냄비가 움직이고 있으면
+            self.x, self.y = mouse_x, mouse_y
+            for ingredient in self.ingredients:  # 연결된 재료들도 함께 움직임
+                ingredient.x, ingredient.y = self.x, self.y
+
+
         if self.water:
             self.timer += 1
 
@@ -90,16 +108,17 @@ class Pot:
                         pass
 
                     self.current_frame_time = 0  # 지속 시간 초기화
-        else:
-            self.x = self.origin_x
-            self.y = self.origin_y
-            self.isMoving = False
+
 
         if self.isSelected2:
             self.x, self.y = mouse_x, mouse_y
             for ingredient in self.ingredients:  # 연결된 재료들도 함께 움직임
                 ingredient.x, ingredient.y = self.x, self.y
             self.isMoving = True
+        else:
+            self.x = self.origin_x
+            self.y = self.origin_y
+            self.isMoving = False
 
         pass
 
@@ -110,7 +129,7 @@ class Pot:
         if group == 'pot:egg':
             if self.isMoving:
                 other.isMoving = True
-            pass
+                pass
         elif group == 'pot:noodle':
             if self.water:
                 other.water = True

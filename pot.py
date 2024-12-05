@@ -27,6 +27,7 @@ class Pot:
         self.make_water = False
         self.isMoving = False
         self.isBurnt = False
+        self.checkScore = False
         self.ingredients = []
         self.timer = 0
         self.frame_num = 5
@@ -77,49 +78,52 @@ class Pot:
         pass
 
     def update(self, mouse_x, mouse_y):
-        if not self.make_water and self.water == True:
-            water = Water(self.x, self.y, self.powder)
-            game_world.add_object(water,3)
-            game_world.add_collision_pair('pot:water', water, None)
-            game_world.add_collision_pair('pot:water', None, self)
-            #print('makeWater')
-            self.make_water = True
-
-        if self.isMoving:  # 냄비가 움직이고 있으면
-            self.x, self.y = mouse_x, mouse_y
-            for ingredient in self.ingredients:  # 연결된 재료들도 함께 움직임
-                ingredient.x, ingredient.y = self.x, self.y
-
-
-        if self.water and not self.isMoving:
-            self.timer += 1
-
-            if self.timer > 0:
-                self.current_frame_time += 1
-
-                # 첫 번째 프레임을 길게 표시한 후 나머지 프레임만 반복
-                if self.current_frame_time >= self.frame_duration[self.frame_x]:
-                    # 마지막 프레임인지 확인
-                    if self.frame_x < self.frame_num - 1:
-                        self.frame_x = 1 + (self.frame_x - 1 + 1) % (self.frame_num - 1)
-                    elif self.frame_x > 2:
-                        self.isBurnt = True
-                    else:
-                        #print('Reached the last frame')  # 디버그용 출력
-                        pass
-
-                    self.current_frame_time = 0  # 지속 시간 초기화
-
-
-        if self.isSelected2:
-            self.x, self.y = mouse_x, mouse_y
-            for ingredient in self.ingredients:  # 연결된 재료들도 함께 움직임
-                ingredient.x, ingredient.y = self.x, self.y
-            self.isMoving = True
+        if self.checkScore:
+            self.x += 3
         else:
-            self.x = self.origin_x
-            self.y = self.origin_y
-            self.isMoving = False
+            if not self.make_water and self.water == True:
+                water = Water(self.x, self.y, self.powder)
+                game_world.add_object(water, 3)
+                game_world.add_collision_pair('pot:water', water, None)
+                game_world.add_collision_pair('pot:water', None, self)
+                # print('makeWater')
+                self.make_water = True
+
+            if self.isMoving:  # 냄비가 움직이고 있으면
+                self.x, self.y = mouse_x, mouse_y
+                for ingredient in self.ingredients:  # 연결된 재료들도 함께 움직임
+                    ingredient.x, ingredient.y = self.x, self.y
+
+            if self.water and not self.isMoving:
+                self.timer += 1
+
+                if self.timer > 0:
+                    self.current_frame_time += 1
+
+                    # 첫 번째 프레임을 길게 표시한 후 나머지 프레임만 반복
+                    if self.current_frame_time >= self.frame_duration[self.frame_x]:
+                        # 마지막 프레임인지 확인
+                        if self.frame_x < self.frame_num - 1:
+                            self.frame_x = 1 + (self.frame_x - 1 + 1) % (self.frame_num - 1)
+                        elif self.frame_x > 2:
+                            self.isBurnt = True
+                        else:
+                            # print('Reached the last frame')  # 디버그용 출력
+                            pass
+
+                        self.current_frame_time = 0  # 지속 시간 초기화
+
+            if self.isSelected2:
+                self.x, self.y = mouse_x, mouse_y
+                for ingredient in self.ingredients:  # 연결된 재료들도 함께 움직임
+                    ingredient.x, ingredient.y = self.x, self.y
+                self.isMoving = True
+            else:
+                self.x = self.origin_x
+                self.y = self.origin_y
+                self.isMoving = False
+
+
 
         pass
 
@@ -155,5 +159,8 @@ class Pot:
             self.water = True
             pass
         elif group == 'pot:tray':
-            play_mode.check_score(self, None)
+            if self.checkScore == False:
+                play_mode.check_score(self)
+                other.move_right = True
+                self.checkScore = True
             pass

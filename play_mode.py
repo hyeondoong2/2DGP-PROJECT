@@ -26,13 +26,13 @@ class Game:
         self.money = 0
 
     def draw(self):
-        self.font.draw(1350, 720, f'{self.money:01d}', (0, 0, 0))
+        self.font.draw(1320, 720, f'{self.money:01d}', (0, 0, 0))
         pass
 
     def check(self, x, y):
         pass
 
-    def update(self,x, y):
+    def update(self):
         pass
 
 def handle_events():
@@ -142,7 +142,7 @@ def finish():
     game_world.clear()
     pass
 
-def check_score(pot, recipe):
+def check_score(pot):
     if (pot.isBurnt or pot.water == False
         or pot.noodle == False or pot.powder == False):
         pot.price = 0
@@ -181,6 +181,7 @@ def check_score(pot, recipe):
 def update():
     game_world.update(mouse_x, mouse_y)
     game_world.handle_collisions()
+    game.update()
     pass
 
 

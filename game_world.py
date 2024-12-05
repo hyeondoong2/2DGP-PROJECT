@@ -1,5 +1,6 @@
 world = [[] for _ in range(10)]
 collision_pairs={}
+import play_mode
 
 def add_collision_pair(group,a,b):
     if group not in collision_pairs:

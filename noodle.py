@@ -53,7 +53,7 @@ class Noodle:
 
         # 충돌 여부에 따라 Bounding Box 조정
         if self.isSelected or self.OnRamen:
-            self.bb_x, self.bb_y =  40, 40
+            self.bb_x, self.bb_y =  50, 50
         elif not self.isSelected:
             self.bb_x, self.bb_y = 100, 60
 

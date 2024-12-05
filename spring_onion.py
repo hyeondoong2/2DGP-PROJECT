@@ -62,6 +62,8 @@ class SpringOnion:
     def update(self, mouse_x, mouse_y):
         if self.attached_pot:  # 냄비에 연결된 경우
             self.x, self.y = self.attached_pot.x, self.attached_pot.y
+            if self.x > 1600:
+                game_world.remove_object(self)
         elif self.isSelected2:  # 냄비 위에서 고정된 상태
             self.x = self.ramen_x
             self.y = self.ramen_y
@@ -77,13 +79,14 @@ class SpringOnion:
         if (group == 'pot:springOnion' and not self.isSelected2
             and other.spring_onion == False and other.isMoving == False
             and other.isBurnt == False):
+
             self.OnRamen = True
             self.ramen_x, self.ramen_y = other.x, other.y + 10  # 냄비의 좌표를 저장
 
         elif group == 'pot:springOnion' and not self.isSelected2:
             self.OnRamen = False
-        elif group == 'pot:springOnion' and self.OnRamen and other.isMoving == False\
-                and self.attached_pot == None:
+        elif (group == 'pot:springOnion' and self.OnRamen and other.isMoving == False
+              and self.attached_pot == None):
             other.spring_onion = True
             other.attach_ingredient(self)
             self.attached_pot = other

@@ -70,6 +70,8 @@ class Egg:
     def update(self, mouse_x, mouse_y):
         if self.attached_pot:  # 냄비에 연결된 경우
             self.x, self.y = self.attached_pot.x, self.attached_pot.y + 50
+            if self.x > 1600:
+                game_world.remove_object(self)
 
         elif self.isSelected2:  # 냄비 위에서 고정된 상태
             self.x = self.ramen_x
@@ -105,6 +107,7 @@ class Egg:
             self.ramen_x, self.ramen_y = other.x, other.y + 50  # 냄비의 좌표를 저장
         elif group == 'pot:egg' and not self.isSelected2 and other.isMoving == False:
             self.OnRamen = False
+            other.egg = False
             self.ramen_x, self.ramen_y = self.origin_x, self.origin_y
         elif (group == 'pot:egg' and self.OnRamen and other.isMoving == False
                 and self.attached_pot == None):

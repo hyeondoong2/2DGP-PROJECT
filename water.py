@@ -53,6 +53,10 @@ class Water:
             self.x, self.y = self.attached_pot.x, self.attached_pot.y + 20
             if self.frame_x == 7 or self.frame_x == 9 or self.frame_x == 10:
                 self.y = self.y - 8
+            if self.x > 1600:
+                game_world.remove_collision_objects(self)
+                game_world.remove_object(self)
+
 
         self.current_frame_time += 1
 
@@ -89,5 +93,10 @@ class Water:
         if group == 'pot:water' and other.isMoving == False and self.attached_pot == None:
             other.attach_ingredient(self)
             self.attached_pot = other
+
+
+        if  group == 'pot:water' and self.frame_x > 3:
+            other.isCooked = True
+
         pass
 

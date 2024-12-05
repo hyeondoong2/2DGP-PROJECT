@@ -33,7 +33,8 @@ class Noodle:
 
     def get_bb(self):
         # fill here
-        return self.x - self.bb_x, self.y - self.bb_y, self.x + self.bb_x, self.y + self.bb_y
+        return (self.x - self.bb_x, self.y - self.bb_y,
+                self.x + self.bb_x, self.y + self.bb_y)
         pass
 
     def check(self, click_x, click_y):
@@ -67,6 +68,8 @@ class Noodle:
     def update(self, mouse_x, mouse_y):
         if self.attached_pot:  # 냄비에 연결된 경우
             self.x, self.y = self.attached_pot.x, self.attached_pot.y + 10
+            if self.x > 1600:
+                game_world.remove_object(self)
 
         elif self.isSelected2:  # 냄비 위에서 고정된 상태
             self.x = self.ramen_x

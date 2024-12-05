@@ -5,6 +5,7 @@ from pico2d import *
 import game_world
 from sdl2 import SDL_QUIT, SDL_KEYDOWN, SDLK_ESCAPE, SDL_MOUSEMOTION, SDL_MOUSEBUTTONDOWN, SDL_MOUSEBUTTONUP
 import game_framework, title_mode
+import price
 from kitchen import Kitchen
 from fire import Fire
 from egg import Egg
@@ -15,6 +16,7 @@ from pot import Pot
 from kettle import Kettle
 from recipe import Recipe
 from tray import Tray
+from price import Price
 
 mouse_x, mouse_y = 0, 0
 click_x, click_y = 0, 0
@@ -143,17 +145,21 @@ def finish():
     pass
 
 def check_score(pot):
-    if (pot.isBurnt or pot.water == False
-        or pot.noodle == False or pot.powder == False):
+    global price
+    global recipe  # 함수 시작 부분에 global 선언
+
+    if (pot.isBurnt or pot.water == False or pot.isCooked == False
+            or pot.noodle == False or pot.powder == False):
         pot.price = 0
         game.money += pot.price
+        price = Price(1, pot.price)
+        game_world.add_object(price, 9)
     elif recipe.type == 0:
         # 파o, 계란o
         if not pot.spring_onion:
             pot.price -= 250
         if not pot.egg:
             pot.price -= 250
-            pass
         game.money += pot.price
     elif recipe.type == 1:
         # 파x, 계란 x
@@ -161,20 +167,34 @@ def check_score(pot):
             pot.price -= 250
         if pot.egg:
             pot.price -= 250
-            pass
         game.money += pot.price
     elif recipe.type == 2:
         # 계란 x
         if pot.egg:
             pot.price -= 500
-            pass
         game.money += pot.price
     elif recipe.type == 3:
         # 파 x
         if pot.spring_onion:
             pot.price -= 500
-            pass
         game.money += pot.price
+
+    if pot.price == 1000:
+        price = Price(2, pot.price)
+        game_world.add_object(price, 9)
+    elif pot.price == 750:
+        price = Price(3, pot.price)
+        game_world.add_object(price, 9)
+    elif pot.price == 500:
+        price = Price(4, pot.price)
+        game_world.add_object(price, 9)
+
+    # 현재 recipe 제거
+    game_world.remove_object(recipe)
+
+    # 새로운 recipe 생성 및 등록
+    recipe = Recipe(random.randint(0, 3))  # 새로운 레시피 생성
+    game_world.add_object(recipe, 8)  # 새로운 레시피를 게임 월드에 추가
     pass
 
 

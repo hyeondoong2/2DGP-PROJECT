@@ -1,4 +1,6 @@
 from pico2d import load_image, draw_rectangle
+from pygame.pypm import Initialize
+
 import game_world
 import play_mode
 from water import Water
@@ -22,6 +24,7 @@ class Pot:
         self.powder = False
         self.spring_onion = False
         self.isBoiling = boiling
+        self.isCooked = False
         self.isSelected = False
         self.isSelected2 = False
         self.make_water = False
@@ -66,6 +69,28 @@ class Pot:
             self.ingredients.remove(ingredient)
             ingredient.attached_pot = None  # 재료의 냄비 연결 해제
 
+    def Initialize(self):
+        self.frame_x = 0
+        self.price = 1000
+        self.water = False
+        self.egg = False
+        self.noodle = False
+        self.powder = False
+        self.spring_onion = False
+        self.isBoiling = True
+        self.isSelected = False
+        self.isSelected2 = False
+        self.make_water = False
+        self.isMoving = False
+        self.isBurnt = False
+        self.checkScore = False
+        self.ingredients = []
+        self.timer = 0
+        self.frame_num = 5
+        self.frame_duration = [2900, 80, 80, 80, 80]  # 각 프레임에 대해 지속시간 설정 (첫 번째 프레임은 길게 설정)
+        self.current_frame_time = 0
+    pass
+
     def check(self, click_x, click_y):
         # 마우스가 영역에 들어갔는지 확인
         if self.isBoiling:
@@ -80,6 +105,30 @@ class Pot:
     def update(self, mouse_x, mouse_y):
         if self.checkScore:
             self.x += 3
+            if self.x > 1700 and self.isBurnt == False:
+                self.x = self.origin_x
+                self.frame_x = 0
+                self.price = 1000
+                self.water = False
+                self.egg = False
+                self.noodle = False
+                self.powder = False
+                self.spring_onion = False
+                self.isBoiling = True
+                self.isSelected = False
+                self.isSelected2 = False
+                self.make_water = False
+                self.isMoving = False
+                self.isBurnt = False
+                self.checkScore = False
+                self.ingredients = []
+                self.timer = 0
+                self.frame_num = 5
+                self.current_frame_time = 0  # 현재 프레임이 얼마나 지속됐는지 추적
+            elif self.x > 1700 and self.isBurnt:
+                game_world.remove_object(self)
+
+
         else:
             if not self.make_water and self.water == True:
                 water = Water(self.x, self.y, self.powder)

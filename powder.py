@@ -70,6 +70,8 @@ class Powder:
     def update(self, mouse_x, mouse_y):
         if self.attached_pot:  # 냄비에 연결된 경우
             self.x, self.y = self.attached_pot.x + 40, self.attached_pot.y + 70
+            if self.x > 1600:
+                game_world.remove_object(self)
         elif self.isSelected2:  # 냄비 위에서 고정된 상태
             self.x = self.ramen_x
             self.y = self.ramen_y

@@ -18,6 +18,7 @@ from kettle import Kettle
 from recipe import Recipe
 from tray import Tray
 from price import Price
+from timer import Timer
 import time
 
 # 딜레이를 관리하는 변수
@@ -82,6 +83,7 @@ def init():
     global kettle
     global game
     global recipe
+    global timer
 
     running = True
     kitchen = Kitchen()
@@ -92,6 +94,7 @@ def init():
     kettle = Kettle()
     game = Game()
     tray = Tray()
+    timer = Timer()
     recipe = Recipe(random.randint(0, 3))
 
     fire = [
@@ -117,6 +120,7 @@ def init():
 
     game_world.add_object(kitchen, 0)
     game_world.add_object(tray, 0)
+    game_world.add_object(timer, 0)
     game_world.add_objects(fire, 1)
     game_world.add_objects(pot, 3)
     game_world.add_objects(temporary_pot, 3)

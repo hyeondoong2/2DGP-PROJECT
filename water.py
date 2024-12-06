@@ -1,4 +1,4 @@
-from pico2d import load_image, draw_rectangle
+from pico2d import *
 import game_world
 
 class Water:
@@ -20,6 +20,8 @@ class Water:
         self.frame_duration = [100, 100, 100, 1000, 200, 200, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]  # 각 프레임에 대해 지속시간 설정
         self.current_frame_time = 0  # 현재 프레임이 얼마나 지속됐는지 추적
 
+        self.effect = load_wav('sounds/boiling.WAV')
+        self.effect.set_volume(5)  # 볼륨 설정 (0~128)
 
     def draw(self):
         if self.powder:
@@ -60,6 +62,9 @@ class Water:
 
         self.current_frame_time += 1
 
+        if self.isMoving:
+            self.effect.set_volume(0)
+
         if not self.isMoving:
             # 첫 번째 프레임을 길게 표시한 후 나머지 프레임만 반복
             if self.current_frame_time >= self.frame_duration[self.frame_x]:
@@ -98,8 +103,10 @@ class Water:
         if  group == 'pot:water' and self.frame_x > 3:
             other.isCooked = True
 
+
         if group == 'pot:water' and self.frame_x > 12:
             other.isBurnt = True
+            self.effect.set_volume(0)
 
         pass
 

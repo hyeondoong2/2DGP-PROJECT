@@ -7,6 +7,8 @@ from mom import Mom
 
 mouse_x, mouse_y = 0, 0
 money = 0
+time = 0
+effect_sound = False
 
 def handle_events():
     global running
@@ -37,6 +39,7 @@ def init():
     global mama
     global font
     global music
+    global effect
 
     gameAgain = GameAgain()
     gameExit = GameExit()
@@ -49,6 +52,10 @@ def init():
     music.set_volume(40)
     music.repeat_play()
 
+    effect = load_wav('sounds/lose.WAV')
+    effect.set_volume(15)  # 볼륨 설정 (0~128)
+
+
 def finish():
     global image
     del image
@@ -56,6 +63,13 @@ def finish():
 
 def update():
     # 마우스 상태에 따라 메뉴 업데이트
+    global time
+    global effect
+    global effect_sound
+    time += 1
+    if time > 940 and effect_sound == False:
+        effect.play()
+        effect_sound = True
     gameAgain.update(mouse_x, mouse_y)
     gameExit.update(mouse_x, mouse_y)
     mama.update()

@@ -1,4 +1,4 @@
-from pico2d import load_image, draw_rectangle
+from pico2d import *
 import game_world
 import game_framework
 
@@ -20,6 +20,9 @@ class Kettle:
         self.width, self.height = 204, 220
         self.frame_duration = [50, 50, 50]  # 각 프레임에 대해 지속시간 설정 (첫 번째 프레임은 길게 설정)
         self.current_frame_time = 0  # 현재 프레임이 얼마나 지속됐는지 추적
+
+        self.effect = load_wav('sounds/water.WAV')
+        self.effect.set_volume(5)  # 볼륨 설정 (0~128)
 
 
     def draw(self):
@@ -57,6 +60,7 @@ class Kettle:
         if self.isSelected2:  # 냄비 위에서 고정된 상태
             self.x = self.ramen_x
             self.y = self.ramen_y
+            self.effect.play()
 
             if self.timer < 300:  # 타이머가 100 미만일 때만 프레임 업데이트
                 self.timer += 1

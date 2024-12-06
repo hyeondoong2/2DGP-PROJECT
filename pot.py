@@ -1,4 +1,4 @@
-from pico2d import load_image, draw_rectangle
+from pico2d import *
 
 import game_world
 import play_mode
@@ -34,6 +34,8 @@ class Pot:
         self.frame_duration = [2900, 80, 80, 80, 80]  # 각 프레임에 대해 지속시간 설정 (첫 번째 프레임은 길게 설정)
         self.current_frame_time = 0  # 현재 프레임이 얼마나 지속됐는지 추적
 
+        self.effect = load_wav('sounds/bell.WAV')
+        self.effect.set_volume(20)  # 볼륨 설정 (0~128)
 
     def draw(self):
         self.image.clip_composite_draw(
@@ -212,6 +214,7 @@ class Pot:
             pass
         elif group == 'pot:tray':
             if self.checkScore == False:
+                self.effect.play()
                 play_mode.check_score(self)
                 other.move_right = True
                 self.checkScore = True

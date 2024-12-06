@@ -1,4 +1,4 @@
-from pico2d import load_image, draw_rectangle
+from pico2d import *
 import game_world
 
 class SpringOnion:
@@ -18,6 +18,9 @@ class SpringOnion:
         self.adjust_x, self.adjust_y = 0, 0
         self.frame_duration = [50, 50, 50, 50]  # 각 프레임에 대해 지속시간 설정 (첫 번째 프레임은 길게 설정)
         self.current_frame_time = 0  # 현재 프레임이 얼마나 지속됐는지 추적
+
+        self.effect = load_wav('sounds/spring_onion.wav')
+        self.effect.set_volume(50)  # 볼륨 설정 (0~128)
 
 
     def draw(self):
@@ -87,6 +90,7 @@ class SpringOnion:
 
                 # 마지막 프레임인지 확인
                 if self.frame_x < self.frame_num - 1:
+                    self.effect.play()
                     self.frame_x = 1 + (self.frame_x - 1 + 1) % (self.frame_num - 1)
                 else:
                     # print('Reached the last frame')  # 디버그용 출력

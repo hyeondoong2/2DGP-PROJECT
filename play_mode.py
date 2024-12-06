@@ -130,8 +130,9 @@ def init():
 
     game_world.add_object(noodle, 4)
     game_world.add_object(powder, 6)
-    game_world.add_object(egg, 7)
-    game_world.add_object(springOnion, 8)
+    game_world.add_object(springOnion, 7)
+    game_world.add_object(egg, 8)
+
 
     game_world.add_object(kettle, 9)
     game_world.add_object(recipe, 9)

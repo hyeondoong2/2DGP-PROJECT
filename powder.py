@@ -29,7 +29,7 @@ class Powder:
             self.x, self.y,  # 그릴 위치 (x, y)
             self.width, self.height  # 그릴 크기 (width, height)
         )
-        #draw_rectangle(*self.get_bb())
+        draw_rectangle(*self.get_bb())
 
     def get_bb(self):
         # fill here
@@ -54,8 +54,8 @@ class Powder:
 
         # 충돌 여부에 따라 Bounding Box 조정
         if self.isSelected or self.OnRamen:
-            self.bb_x, self.bb_y = 40, 20
-            self.adjust_x, self.adjust_y = 0, - 20
+            self.bb_x, self.bb_y = 20, 10
+            self.adjust_x, self.adjust_y = 0, -20
         elif not self.isSelected:
             self.bb_x, self.bb_y = 100, 60
             self.adjust_x, self.adjust_y = 0, 0

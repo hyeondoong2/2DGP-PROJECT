@@ -240,7 +240,7 @@ def update():
         timer.effect.__del__()
         game_world.remove_all_objects()
         game_world.clear()
-        if game.money >= 10000 :
+        if game.money >= 5000 :
             win_mode.money = game.money
             game_framework.change_mode(win_mode)
         else:

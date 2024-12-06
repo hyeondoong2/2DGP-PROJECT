@@ -5,7 +5,7 @@ from pico2d import *
 
 import game_world
 from sdl2 import SDL_QUIT, SDL_KEYDOWN, SDLK_ESCAPE, SDL_MOUSEMOTION, SDL_MOUSEBUTTONDOWN, SDL_MOUSEBUTTONUP
-import game_framework, title_mode
+import game_framework, title_mode, win_mode, lose_mode
 import price
 from kitchen import Kitchen
 from fire import Fire
@@ -29,6 +29,8 @@ mouse_x, mouse_y = 0, 0
 click_x, click_y = 0, 0
 up_x, up_y = 0, 0
 global recipe
+
+TIME_OUT = True
 
 class Game:
     def __init__(self):
@@ -228,6 +230,14 @@ def get_temporary_pot():
 def update():
     global recipe_creation_time
     global recipe
+
+    if TIME_OUT:
+        game_world.clear()
+        if game.money > 10000 :
+            game_framework.change_mode(win_mode)
+        else:
+            game_framework.change_mode(lose_mode)
+        pass
 
     # recipe 생성 딜레이 체크
     if recipe_creation_time and time.time() - recipe_creation_time >= recipe_delay_duration:

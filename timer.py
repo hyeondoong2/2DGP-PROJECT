@@ -2,6 +2,9 @@ import random
 from pico2d import load_image, load_font, get_time
 import time
 
+import play_mode
+
+
 class Timer:
     def __init__(self):
         self.time1 = load_image("resources/time_bar1.png")  # 배경 이미지
@@ -43,6 +46,7 @@ class Timer:
             self.time -= delta_time
             if self.time < 0:
                 self.time = 0
+                play_mode.TIME_OUT = True
 
     def reset(self):
         self.time = self.max_time

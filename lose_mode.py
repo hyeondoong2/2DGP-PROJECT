@@ -8,11 +8,11 @@ from mom import Mom
 mouse_x, mouse_y = 0, 0
 money = 0
 time = 0
-effect_sound = False
 
 def handle_events():
     global running
     global mouse_x, mouse_y
+    global  effect_sound
 
     events = get_events()
     for event in events:
@@ -26,9 +26,11 @@ def handle_events():
             # 메뉴 클릭 처리
             if gameAgain.isDragged:
                 play_mode.TIME_OUT = False
+                gameAgain.effect.play()
                 game_framework.change_mode(play_mode)  # GameStart 메뉴 클릭 시 플레이 모드로 전환
             elif gameExit.isDragged:
                 play_mode.TIME_OUT = False
+                gameExit.effect.play()
                 game_framework.change_mode(title_mode)  # GameRule 메뉴 클릭 시 규칙 출력 (예시)
             pass
 
@@ -52,8 +54,6 @@ def init():
     music.set_volume(40)
     music.repeat_play()
 
-    effect = load_wav('sounds/lose.WAV')
-    effect.set_volume(15)  # 볼륨 설정 (0~128)
 
 
 def finish():
@@ -65,11 +65,7 @@ def update():
     # 마우스 상태에 따라 메뉴 업데이트
     global time
     global effect
-    global effect_sound
-    time += 1
-    if time > 940 and effect_sound == False:
-        effect.play()
-        effect_sound = True
+
     gameAgain.update(mouse_x, mouse_y)
     gameExit.update(mouse_x, mouse_y)
     mama.update()

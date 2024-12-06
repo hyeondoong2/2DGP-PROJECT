@@ -1,4 +1,4 @@
-from pico2d import load_image, draw_rectangle
+from pico2d import *
 import game_world
 
 class Powder:
@@ -19,6 +19,8 @@ class Powder:
         self.adjust_x, self.adjust_y = 0, 0
         self.frame_duration = [100, 50, 50, 50, 50] # 프레임에 대해 지속시간 설정 (첫 번째 프레임은 길게 설정)
         self.current_frame_time = 0  # 현재 프레임이 얼마나 지속됐는지 추적
+        self.effect = load_wav('sounds/powder.WAV')
+        self.effect.set_volume(10)  # 볼륨 설정 (0~128)
 
 
     def draw(self):
@@ -91,8 +93,10 @@ class Powder:
             # 첫 번째 프레임을 길게 표시한 후 나머지 프레임만 반복
             if self.current_frame_time >= self.frame_duration[self.frame_x]:
 
+
                 # 마지막 프레임인지 확인
                 if self.frame_x < self.frame_num - 1:
+                    self.effect.play()
                     self.frame_x = 1 + (self.frame_x - 1 + 1) % (self.frame_num - 1)
                 else:
                     # print('Reached the last frame')  # 디버그용 출력

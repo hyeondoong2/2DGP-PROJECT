@@ -17,11 +17,12 @@ class Water:
         self.isBurning = False
         self.attached_pot = None
         self.isMoving = False
+        self.make_sound = False
         self.frame_duration = [100, 100, 100, 1000, 200, 200, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]  # 각 프레임에 대해 지속시간 설정
         self.current_frame_time = 0  # 현재 프레임이 얼마나 지속됐는지 추적
 
         self.effect = load_wav('sounds/boiling.WAV')
-        self.effect.set_volume(5)  # 볼륨 설정 (0~128)
+        self.effect.set_volume(20)  # 볼륨 설정 (0~128)
 
     def draw(self):
         if self.powder:
@@ -102,7 +103,9 @@ class Water:
 
         if  group == 'pot:water' and self.frame_x > 3:
             other.isCooked = True
-
+            if self.make_sound == False:
+                self.effect.play()
+                self.make_sound = True
 
         if group == 'pot:water' and self.frame_x > 12:
             other.isBurnt = True

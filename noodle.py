@@ -1,4 +1,4 @@
-from pico2d import load_image, draw_rectangle
+from pico2d import *
 import game_world
 
 class Noodle:
@@ -15,10 +15,13 @@ class Noodle:
         self.water = False
         self.attached_pot = None
         self.isMoving = True
+        self.play_sound = False
         self.frame_num = 3
         self.width, self.height = 121, 108
         self.frame_duration = [50, 500, 50]  # 각 프레임에 대해 지속시간 설정 (첫 번째 프레임은 길게 설정)
         self.current_frame_time = 0  # 현재 프레임이 얼마나 지속됐는지 추적
+        self.effect = load_wav('sounds/ramen.WAV')
+        self.effect.set_volume(20)  # 볼륨 설정 (0~128)
 
 
     def draw(self):
@@ -84,6 +87,11 @@ class Noodle:
         if self.isSelected2:
             self.current_frame_time += 1
             self.frame_x = 1
+
+            if self.play_sound == False:
+                self.effect.play()
+                self.play_sound = True
+
 
         if self.water and self.isSelected2:
             self.frame_x = 2

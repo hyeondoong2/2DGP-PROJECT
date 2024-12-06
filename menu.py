@@ -7,6 +7,8 @@ class GameStart:
         self.x, self.y = 350, 500  # 메뉴의 중심 좌표
         self.width, self.height = 300, 88 # 메뉴의 크기
         self.isDragged = False  # 마우스가 올라가 있는지 여부
+        self.effect = load_wav('sounds/button.WAV')
+        self.effect.set_volume(20)  # 볼륨 설정 (0~128)
 
     def draw(self):
         self.image.clip_draw(self.frame * 300, 0, self.width, self.height, self.x, self.y)
@@ -28,6 +30,8 @@ class GameRule:
         self.x, self.y = 350, 370  # 메뉴의 중심 좌표
         self.width, self.height = 300, 88  # 메뉴의 크기
         self.isDragged = False  # 마우스가 올라가 있는지 여부
+        self.effect = load_wav('sounds/button.WAV')
+        self.effect.set_volume(20)  # 볼륨 설정 (0~128)
 
     def draw(self):
         self.image.clip_draw(self.frame * 300, 0, self.width, self.height, self.x, self.y)
@@ -51,6 +55,8 @@ class GameAgain:
         self.x, self.y = 1100, 800  # 메뉴의 중심 좌표
         self.width, self.height = 301, 88  # 메뉴의 크기
         self.isDragged = False  # 마우스가 올라가 있는지 여부
+        self.effect = load_wav('sounds/button.WAV')
+        self.effect.set_volume(20)  # 볼륨 설정 (0~128)
 
     def draw(self):
         self.image.clip_draw(self.frame * 301, 0, self.width, self.height, self.x, self.y)
@@ -74,6 +80,8 @@ class GameExit:
         self.x, self.y = 1400, 800  # 메뉴의 중심 좌표
         self.width, self.height = 302, 88  # 메뉴의 크기
         self.isDragged = False  # 마우스가 올라가 있는지 여부
+        self.effect = load_wav('sounds/button.WAV')
+        self.effect.set_volume(20)  # 볼륨 설정 (0~128)
 
     def draw(self):
         self.image.clip_draw(self.frame * 302, 0, self.width, self.height, self.x, self.y)

@@ -31,7 +31,7 @@ click_x, click_y = 0, 0
 up_x, up_y = 0, 0
 global recipe
 
-TIME_OUT = True
+TIME_OUT = False
 
 class Game:
     def __init__(self):

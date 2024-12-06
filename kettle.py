@@ -22,7 +22,7 @@ class Kettle:
         self.current_frame_time = 0  # 현재 프레임이 얼마나 지속됐는지 추적
 
         self.effect = load_wav('sounds/water.WAV')
-        self.effect.set_volume(5)  # 볼륨 설정 (0~128)
+        self.effect.set_volume(20)  # 볼륨 설정 (0~128)
 
 
     def draw(self):
@@ -60,9 +60,13 @@ class Kettle:
         if self.isSelected2:  # 냄비 위에서 고정된 상태
             self.x = self.ramen_x
             self.y = self.ramen_y
-            self.effect.play()
 
-            if self.timer < 300:  # 타이머가 100 미만일 때만 프레임 업데이트
+            # 소리 재생은 한 번만 수행
+            if not self.sound_played:
+                self.effect.play()
+                self.sound_played = True
+
+            if self.timer < 300:  # 타이머가 300 미만일 때만 프레임 업데이트
                 self.timer += 1
                 self.current_frame_time += 1
                 self.water = True
@@ -76,8 +80,7 @@ class Kettle:
 
                     self.current_frame_time = 0  # 지속 시간 초기화
 
-            else:  # 타이머가 300을 초과하면 프레임 멈춤
-                # 상태 초기화
+            else:  # 타이머가 300을 초과하면 상태 초기화
                 self.isSelected2 = False
                 self.OnRamen = False
                 self.timer = 0
@@ -85,6 +88,7 @@ class Kettle:
                 self.x = self.origin_x
                 self.y = self.origin_y
                 self.water = False
+                self.sound_played = False  # 소리 재생 상태 초기화
 
         elif self.isSelected:  # 마우스로 드래그 중인 상태
             self.x = mouse_x
@@ -92,6 +96,7 @@ class Kettle:
         else:  # 원래 자리로 복귀
             self.x = self.origin_x
             self.y = self.origin_y
+            self.sound_played = False  # 고정되지 않은 상태에서는 소리 초기화
         pass
 
     def handle_collision(self, group, other):

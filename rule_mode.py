@@ -1,4 +1,4 @@
-from pico2d import load_image, get_time, clear_canvas, update_canvas, get_events
+from pico2d import *
 from sdl2 import SDL_QUIT, SDL_KEYDOWN, SDLK_ESCAPE, SDL_MOUSEMOTION, SDL_MOUSEBUTTONDOWN, SDL_MOUSEBUTTONUP
 import game_framework, play_mode
 from menu import GameStart
@@ -20,6 +20,7 @@ def handle_events():
         elif event.type == SDL_MOUSEBUTTONDOWN:
             # 메뉴 클릭 처리
             if gameStart.isDragged:
+                gameStart.effect.play()
                 game_framework.change_mode(play_mode)  # GameStart 메뉴 클릭 시 플레이 모드로 전환
 
 

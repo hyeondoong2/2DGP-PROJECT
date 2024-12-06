@@ -23,8 +23,10 @@ def handle_events():
         elif event.type == SDL_MOUSEBUTTONDOWN:
             # 메뉴 클릭 처리
             if gameStart.isDragged:
+                gameStart.effect.play()
                 game_framework.change_mode(play_mode)  # GameStart 메뉴 클릭 시 플레이 모드로 전환
             elif gameRule.isDragged:
+                gameStart.effect.play()
                 game_framework.change_mode(rule_mode)  # GameRule 메뉴 클릭 시 규칙 출력 (예시)
 
 def init():

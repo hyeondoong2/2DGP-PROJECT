@@ -35,7 +35,7 @@ class Pot:
         self.current_frame_time = 0  # 현재 프레임이 얼마나 지속됐는지 추적
 
         self.effect = load_wav('sounds/bell.WAV')
-        self.effect.set_volume(20)  # 볼륨 설정 (0~128)
+        self.effect.set_volume(20)  # 볼륨 설정 (0~12)
 
     def draw(self):
         self.image.clip_composite_draw(

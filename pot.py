@@ -113,6 +113,18 @@ class Pot:
                     pot.origin_x, pot.origin_y = self.origin_x, self.origin_y
                     pot.isBoiling = True
                     pot.ingredients = []  # 냄비의 재료 리스트 초기화
+                    self.water = False
+                    self.egg = False
+                    self.noodle = False
+                    self.powder = False
+                    self.spring_onion = False
+                    self.isBoiling = True
+                    self.isSelected = False
+                    self.isSelected2 = False
+                    self.make_water = False
+                    self.isMoving = False
+                    self.isBurnt = False
+                    self.checkScore = False
 
                     game_world.add_collision_pair('pot:egg', None, pot)
                     game_world.add_collision_pair('pot:powder', None, pot)

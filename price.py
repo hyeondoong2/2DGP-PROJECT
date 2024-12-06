@@ -27,6 +27,9 @@ class Price:
         elif self.type == 5:
             self.image = load_image('resources/price5.png')
             pass
+        elif self.type == 6:
+            self.image = load_image('resources/price6.png')
+            pass
         self.x, self.y = 1800, 600
 
 
@@ -47,6 +50,7 @@ class Price:
         pass
 
     def update(self,x, y):
+        global recipe
         if self.goLeft == False and self.x > 1200:
             self.x -= 7
 

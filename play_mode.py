@@ -18,11 +18,16 @@ from kettle import Kettle
 from recipe import Recipe
 from tray import Tray
 from price import Price
+import time
+
+# 딜레이를 관리하는 변수
+recipe_creation_time = None
+recipe_delay_duration = 1.0  # 딜레이 시간 (초)
 
 mouse_x, mouse_y = 0, 0
 click_x, click_y = 0, 0
 up_x, up_y = 0, 0
-
+global recipe
 
 class Game:
     def __init__(self):
@@ -148,6 +153,7 @@ def finish():
 def check_score(pot):
     global price
     global recipe  # 함수 시작 부분에 global 선언
+    global recipe_creation_time
 
     if (pot.isBurnt or pot.water == False or pot.isCooked == False
             or pot.noodle == False or pot.powder == False):
@@ -196,13 +202,13 @@ def check_score(pot):
     elif pot.price == 300:
         price = Price(5, pot.price)
         game_world.add_object(price, 10)
+    elif pot.price == 800:
+        price = Price(6, pot.price)
+        game_world.add_object(price, 10)
 
     # 현재 recipe 제거
     game_world.remove_object(recipe)
-
-    # 새로운 recipe 생성 및 등록
-    recipe = Recipe(random.randint(0, 3))  # 새로운 레시피 생성
-    game_world.add_object(recipe, 9)  # 새로운 레시피를 게임 월드에 추가
+    recipe_creation_time = time.time()  # 현재 시간을 기록
     pass
 
 def get_temporary_pot():
@@ -215,9 +221,16 @@ def get_temporary_pot():
         #print("No temporary pots available!")
         return None
 
-
-
 def update():
+    global recipe_creation_time
+    global recipe
+
+    # recipe 생성 딜레이 체크
+    if recipe_creation_time and time.time() - recipe_creation_time >= recipe_delay_duration:
+        recipe_creation_time = None  # 타이머 초기화
+        recipe = Recipe(random.randint(0, 3))  # 새로운 recipe 생성
+        game_world.add_object(recipe, 9)  # game_world에 추가
+
     game_world.update(mouse_x, mouse_y)
     game_world.handle_collisions()
     game.update()

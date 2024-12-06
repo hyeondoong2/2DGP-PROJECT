@@ -233,9 +233,8 @@ def update():
     global recipe
 
     if TIME_OUT:
-        for p in pot:
-            p.Initialize()
-        finish()
+        game_world.remove_all_objects()
+        game_world.clear()
         if game.money >= 10000 :
             win_mode.money = game.money
             game_framework.change_mode(win_mode)

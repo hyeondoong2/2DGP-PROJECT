@@ -9,8 +9,8 @@ class Timer:
     def __init__(self):
         self.time1 = load_image("resources/time_bar1.png")  # 배경 이미지
         self.time2 = load_image("resources/time_bar2.png")  # 시간 표시 이미지
-        self.time = 60  # 초기 시간 설정
-        self.max_time = 60  # 최대 시간 (60초)
+        self.time = 30  # 초기 시간 설정
+        self.max_time = 30  # 최대 시간 (60초)
         self.previous_time = get_time()
 
     def draw(self):

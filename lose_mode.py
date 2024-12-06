@@ -23,13 +23,13 @@ def handle_events():
         elif event.type == SDL_MOUSEBUTTONDOWN:
             # 메뉴 클릭 처리
             if gameAgain.isDragged:
+                play_mode.Game.money = 0
+                play_mode.TIME_OUT = False
                 game_framework.change_mode(play_mode)  # GameStart 메뉴 클릭 시 플레이 모드로 전환
-                play_mode.Game.money = 0
-                play_mode.TIME_OUT = False
             elif gameExit.isDragged:
-                game_framework.change_mode(title_mode)  # GameRule 메뉴 클릭 시 규칙 출력 (예시)
                 play_mode.Game.money = 0
                 play_mode.TIME_OUT = False
+                game_framework.change_mode(title_mode)  # GameRule 메뉴 클릭 시 규칙 출력 (예시)
             pass
 
 def init():

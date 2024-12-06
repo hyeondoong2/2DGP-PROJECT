@@ -113,7 +113,7 @@ class Pot:
             elif self.x > 1700 and self.isBurnt:
                 pot = play_mode.get_temporary_pot()
                 if pot:
-                    pot.Initialize()
+                    pot.isBoiling = True
                     pot.x, pot.y = self.origin_x, self.origin_y
                     pot.origin_x, pot.origin_y = self.origin_x, self.origin_y
 
@@ -127,7 +127,9 @@ class Pot:
                         game_world.add_object(pot, 2)
                     else:
                         game_world.add_object(pot, 3)
-                    game_world.remove_object(self)
+
+                game_world.remove_object(self)
+
 
         else:
             if not self.make_water and self.water == True:

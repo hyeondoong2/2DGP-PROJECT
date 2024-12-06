@@ -98,7 +98,7 @@ class Water:
         if  group == 'pot:water' and self.frame_x > 3:
             other.isCooked = True
 
-        if group == 'pot:water' and self.frame_x > 11:
+        if group == 'pot:water' and self.frame_x > 12:
             other.isBurnt = True
 
         pass

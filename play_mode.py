@@ -37,6 +37,9 @@ class Game:
     def __init__(self):
         self.font = load_font("resources/UhBee Seulvely.ttf", 45)
         self.money = 0
+        self.music = load_music('sounds/playmode.mp3')
+        self.music.set_volume(40)
+        self.music.repeat_play()
 
     def draw(self):
         self.font.draw(1320, 720,  f'{self.money:,}', (0, 0, 0))
@@ -234,6 +237,7 @@ def update():
     global recipe
 
     if TIME_OUT:
+        timer.effect.__del__()
         game_world.remove_all_objects()
         game_world.clear()
         if game.money >= 10000 :

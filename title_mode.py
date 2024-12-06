@@ -1,4 +1,4 @@
-from pico2d import load_image, get_time, clear_canvas, update_canvas, get_events
+from pico2d import *
 from sdl2 import SDL_QUIT, SDL_KEYDOWN, SDLK_ESCAPE, SDL_MOUSEMOTION, SDL_MOUSEBUTTONDOWN, SDL_MOUSEBUTTONUP
 import game_framework, play_mode, rule_mode
 from menu import GameRule
@@ -10,6 +10,7 @@ mouse_x, mouse_y = 0, 0
 def handle_events():
     global running
     global mouse_x, mouse_y
+    global music
 
     events = get_events()
     for event in events:
@@ -31,12 +32,17 @@ def init():
     global gameStart
     global gameRule
     global mama
+    global music
 
     gameStart = GameStart()
     gameRule = GameRule()
     mama = Mom('mama')
 
     image = load_image('resources/lobby_background.png')
+    music = load_music('sounds/title.mp3')
+    music.set_volume(40)
+    music.repeat_play()
+    pass
 
 
 def finish():

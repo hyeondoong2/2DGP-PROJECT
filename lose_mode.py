@@ -1,4 +1,4 @@
-from pico2d import load_image, get_time, clear_canvas, update_canvas, get_events, load_font
+from pico2d import *
 from sdl2 import SDL_QUIT, SDL_KEYDOWN, SDLK_ESCAPE, SDL_MOUSEMOTION, SDL_MOUSEBUTTONDOWN, SDL_MOUSEBUTTONUP
 import game_framework, play_mode, rule_mode, title_mode
 from menu import GameAgain
@@ -36,6 +36,7 @@ def init():
     global gameExit
     global mama
     global font
+    global music
 
     gameAgain = GameAgain()
     gameExit = GameExit()
@@ -43,6 +44,10 @@ def init():
 
     image = load_image('resources/result_lose_background.png')
     font = load_font("resources/UhBee Seulvely.ttf", 60)
+
+    music = load_music('sounds/result.WAV')
+    music.set_volume(40)
+    music.repeat_play()
 
 def finish():
     global image

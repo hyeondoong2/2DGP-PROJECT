@@ -1,11 +1,12 @@
-from pico2d import load_image, get_time, clear_canvas, update_canvas, get_events
+from pico2d import load_image, get_time, clear_canvas, update_canvas, get_events, load_font
 from sdl2 import SDL_QUIT, SDL_KEYDOWN, SDLK_ESCAPE, SDL_MOUSEMOTION, SDL_MOUSEBUTTONDOWN, SDL_MOUSEBUTTONUP
-import game_framework, play_mode, rule_mode
-from menu import GameRule
-from menu import GameStart
+import game_framework, play_mode, rule_mode, title_mode
+from menu import GameAgain
+from menu import GameExit
 from mom import Mom
 
 mouse_x, mouse_y = 0, 0
+money = 0
 
 def handle_events():
     global running
@@ -21,23 +22,29 @@ def handle_events():
             mouse_x, mouse_y = event.x, 900 - event.y  # PyGame은 좌표계가 다름
         elif event.type == SDL_MOUSEBUTTONDOWN:
             # 메뉴 클릭 처리
-            if gameStart.isDragged:
+            if gameAgain.isDragged:
                 game_framework.change_mode(play_mode)  # GameStart 메뉴 클릭 시 플레이 모드로 전환
-            elif gameRule.isDragged:
-                game_framework.change_mode(rule_mode)  # GameRule 메뉴 클릭 시 규칙 출력 (예시)
+                play_mode.Game.money = 0
+                play_mode.TIME_OUT = False
+            elif gameExit.isDragged:
+                game_framework.change_mode(title_mode)  # GameRule 메뉴 클릭 시 규칙 출력 (예시)
+                play_mode.Game.money = 0
+                play_mode.TIME_OUT = False
+            pass
 
 def init():
     global image
-    global gameStart
-    global gameRule
+    global gameAgain
+    global gameExit
     global mama
+    global font
 
-    gameStart = GameStart()
-    gameRule = GameRule()
-    mama = Mom()
+    gameAgain = GameAgain()
+    gameExit = GameExit()
+    mama = Mom('angry')
 
     image = load_image('resources/result_lose_background.png')
-
+    font = load_font("resources/UhBee Seulvely.ttf", 60)
 
 def finish():
     global image
@@ -46,8 +53,8 @@ def finish():
 
 def update():
     # 마우스 상태에 따라 메뉴 업데이트
-    gameStart.update(mouse_x, mouse_y)
-    gameRule.update(mouse_x, mouse_y)
+    gameAgain.update(mouse_x, mouse_y)
+    gameExit.update(mouse_x, mouse_y)
     mama.update()
 
 
@@ -55,7 +62,8 @@ def update():
 def draw():
     clear_canvas()
     image.draw(800, 450)
-    gameStart.draw()
-    gameRule.draw()
+    font.draw(450, 580, f'{money:,}', (255, 255, 153))  # 연노랑 글씨로 표시
+    gameAgain.draw()
+    gameExit.draw()
     mama.draw()
     update_canvas()

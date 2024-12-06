@@ -7,6 +7,7 @@ import game_world
 from sdl2 import SDL_QUIT, SDL_KEYDOWN, SDLK_ESCAPE, SDL_MOUSEMOTION, SDL_MOUSEBUTTONDOWN, SDL_MOUSEBUTTONUP
 import game_framework, title_mode, win_mode, lose_mode
 import price
+from game_framework import change_mode
 from kitchen import Kitchen
 from fire import Fire
 from egg import Egg
@@ -30,15 +31,15 @@ click_x, click_y = 0, 0
 up_x, up_y = 0, 0
 global recipe
 
-TIME_OUT = True
+TIME_OUT = False
 
 class Game:
     def __init__(self):
-        self.font = load_font("resources/UhBee Seulvely.ttf", 50)
+        self.font = load_font("resources/UhBee Seulvely.ttf", 45)
         self.money = 0
 
     def draw(self):
-        self.font.draw(1320, 720, f'{self.money:01d}', (0, 0, 0))
+        self.font.draw(1320, 720,  f'{self.money:,}', (0, 0, 0))
         pass
 
     def check(self, x, y):
@@ -232,10 +233,14 @@ def update():
     global recipe
 
     if TIME_OUT:
-        game_world.clear()
-        if game.money > 10000 :
+        for p in pot:
+            p.Initialize()
+        finish()
+        if game.money >= 10000 :
+            win_mode.money = game.money
             game_framework.change_mode(win_mode)
         else:
+            lose_mode.money = game.money
             game_framework.change_mode(lose_mode)
         pass
 

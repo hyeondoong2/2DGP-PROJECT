@@ -70,13 +70,17 @@ class Pot:
         self.x = self.origin_x
         self.y = self.origin_y
         self.frame_x = 0
+        self.image_width, self.image_height = 181, 118
+        self.bb_x, self.bb_y = 50, 30
+        self.move_bb_x, self.move_bb_y = 20, 10
+        self.width, self.height = 181, 118
         self.price = 1000
         self.water = False
         self.egg = False
         self.noodle = False
         self.powder = False
         self.spring_onion = False
-        self.isBoiling = True
+        self.isCooked = False
         self.isSelected = False
         self.isSelected2 = False
         self.make_water = False
@@ -86,6 +90,7 @@ class Pot:
         self.ingredients = []
         self.timer = 0
         self.frame_num = 5
+        self.frame_duration = [2900, 80, 80, 80, 80]  # 각 프레임에 대해 지속시간 설정 (첫 번째 프레임은 길게 설정)
         self.current_frame_time = 0  # 현재 프레임이 얼마나 지속됐는지 추적
     pass
 
@@ -105,26 +110,12 @@ class Pot:
             self.x += 3
             if self.x > 1700 and self.isBurnt == False:
                 self.Initialize()
-
             elif self.x > 1700 and self.isBurnt:
                 pot = play_mode.get_temporary_pot()
                 if pot:
+                    pot.Initialize()
                     pot.x, pot.y = self.origin_x, self.origin_y
                     pot.origin_x, pot.origin_y = self.origin_x, self.origin_y
-                    pot.isBoiling = True
-                    pot.ingredients = []  # 냄비의 재료 리스트 초기화
-                    self.water = False
-                    self.egg = False
-                    self.noodle = False
-                    self.powder = False
-                    self.spring_onion = False
-                    self.isBoiling = True
-                    self.isSelected = False
-                    self.isSelected2 = False
-                    self.make_water = False
-                    self.isMoving = False
-                    self.isBurnt = False
-                    self.checkScore = False
 
                     game_world.add_collision_pair('pot:egg', None, pot)
                     game_world.add_collision_pair('pot:powder', None, pot)

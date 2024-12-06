@@ -34,7 +34,7 @@ def init():
 
     gameStart = GameStart()
     gameRule = GameRule()
-    mama = Mom()
+    mama = Mom('mama')
 
     image = load_image('resources/lobby_background.png')
 

@@ -29,7 +29,7 @@ class Noodle:
             self.x, self.y,  # 그릴 위치 (x, y)
             self.width, self.height  # 그릴 크기 (width, height)
         )
-        #draw_rectangle(*self.get_bb())
+        draw_rectangle(*self.get_bb())
 
     def get_bb(self):
         # fill here
@@ -47,14 +47,14 @@ class Noodle:
             if self.OnRamen:
                 self.isSelected2 = True  # 고정 상태 활성화
                 noodle = Noodle()
-                game_world.add_object(noodle,3)
+                game_world.add_object(noodle,4)
                 game_world.add_collision_pair('pot:noodle', noodle, None)
             elif not self.OnRamen:
                 self.isSelected2 = False # 냄비 위가 아니면 초기화
 
         # 충돌 여부에 따라 Bounding Box 조정
         if self.isSelected or self.OnRamen:
-            self.bb_x, self.bb_y =  50, 50
+            self.bb_x, self.bb_y =  20, 20
         elif not self.isSelected:
             self.bb_x, self.bb_y = 100, 60
 
@@ -92,17 +92,16 @@ class Noodle:
 
     def handle_collision(self, group, other):
         if (group == 'pot:noodle' and not self.isSelected2
-                and other.noodle == False and other.isMoving == False
-                and other.isBurnt == False):
+            and other.noodle == False and other.isMoving == False
+            and other.isBurnt == False):
             self.OnRamen = True
             self.ramen_x, self.ramen_y = other.x, other.y + 10  # 냄비의 좌표를 저장
-        elif group == 'pot:noodle' and not self.isSelected2 and other.isMoving == False:
+        elif group == 'pot:noodle' and not self.isSelected2:
             self.OnRamen = False
             self.ramen_x, self.ramen_y = self.origin_x, self.origin_y
-        elif (group == 'pot:noodle' and self.OnRamen
-              and other.isMoving == False and self.attached_pot == None):
+        elif (group == 'pot:noodle' and other.isMoving == False and self.attached_pot == None):
             other.noodle = True
             other.attach_ingredient(self)
             self.attached_pot = other
-            pass
+
 

@@ -1,11 +1,8 @@
 from pico2d import load_image, draw_rectangle
-from pygame.pypm import Initialize
 
 import game_world
 import play_mode
 from water import Water
-from egg import Egg
-from noodle import Noodle
 
 class Pot:
     def __init__(self, x, y, boiling):
@@ -14,7 +11,7 @@ class Pot:
         self.origin_x, self.origin_y = x, y
         self.frame_x = 0
         self.image_width, self.image_height = 181, 118
-        self.bb_x, self.bb_y = 60, 30
+        self.bb_x, self.bb_y = 50, 30
         self.move_bb_x, self.move_bb_y = 20, 10
         self.width, self.height = 181, 118
         self.price = 1000
@@ -46,8 +43,8 @@ class Pot:
             self.x, self.y,  # 그릴 위치 (x, y)
             self.width, self.height  # 그릴 크기 (width, height)
         )
-        #draw_rectangle(*self.get_bb())
-        #draw_rectangle(*self.get_move_bb())
+        draw_rectangle(*self.get_bb())
+        draw_rectangle(*self.get_move_bb())
 
     def get_bb(self):
         return self.x - self.bb_x, self.y - self.bb_y + 20, self.x + self.bb_x, self.y + self.bb_y + 20
@@ -70,6 +67,8 @@ class Pot:
             ingredient.attached_pot = None  # 재료의 냄비 연결 해제
 
     def Initialize(self):
+        self.x = self.origin_x
+        self.y = self.origin_y
         self.frame_x = 0
         self.price = 1000
         self.water = False
@@ -87,8 +86,7 @@ class Pot:
         self.ingredients = []
         self.timer = 0
         self.frame_num = 5
-        self.frame_duration = [2900, 80, 80, 80, 80]  # 각 프레임에 대해 지속시간 설정 (첫 번째 프레임은 길게 설정)
-        self.current_frame_time = 0
+        self.current_frame_time = 0  # 현재 프레임이 얼마나 지속됐는지 추적
     pass
 
     def check(self, click_x, click_y):
@@ -106,45 +104,32 @@ class Pot:
         if self.checkScore:
             self.x += 3
             if self.x > 1700 and self.isBurnt == False:
-                self.x = self.origin_x
-                self.frame_x = 0
-                self.price = 1000
-                self.water = False
-                self.egg = False
-                self.noodle = False
-                self.powder = False
-                self.spring_onion = False
-                self.isBoiling = True
-                self.isSelected = False
-                self.isSelected2 = False
-                self.make_water = False
-                self.isMoving = False
-                self.isBurnt = False
-                self.checkScore = False
-                self.ingredients = []
-                self.timer = 0
-                self.frame_num = 5
-                self.current_frame_time = 0  # 현재 프레임이 얼마나 지속됐는지 추적
+                self.Initialize()
+
             elif self.x > 1700 and self.isBurnt:
                 pot = play_mode.get_temporary_pot()
                 if pot:
                     pot.x, pot.y = self.origin_x, self.origin_y
                     pot.origin_x, pot.origin_y = self.origin_x, self.origin_y
                     pot.isBoiling = True
+                    pot.ingredients = []  # 냄비의 재료 리스트 초기화
+
                     game_world.add_collision_pair('pot:egg', None, pot)
                     game_world.add_collision_pair('pot:powder', None, pot)
                     game_world.add_collision_pair('pot:noodle', None, pot)
                     game_world.add_collision_pair('pot:springOnion', None, pot)
                     game_world.add_collision_pair('pot:kettle', None, pot)
                     game_world.add_collision_pair('pot:tray', None, pot)
+                    if pot.y == 510:
+                        game_world.add_object(pot, 2)
+                    else:
+                        game_world.add_object(pot, 3)
                     game_world.remove_object(self)
-
-
 
         else:
             if not self.make_water and self.water == True:
                 water = Water(self.x, self.y, self.powder)
-                game_world.add_object(water, 3)
+                game_world.add_object(water, 4)
                 game_world.add_collision_pair('pot:water', water, None)
                 game_world.add_collision_pair('pot:water', None, self)
                 # print('makeWater')
@@ -166,11 +151,12 @@ class Pot:
                         # 마지막 프레임인지 확인
                         if self.frame_x < self.frame_num - 1:
                             self.frame_x = 1 + (self.frame_x - 1 + 1) % (self.frame_num - 1)
-                        elif self.frame_x > 2:
-                            self.isBurnt = True
                         else:
                             # print('Reached the last frame')  # 디버그용 출력
                             pass
+
+                        if self.frame_x > 1:
+                            self.isBurnt = True
 
                         self.current_frame_time = 0  # 지속 시간 초기화
 
@@ -196,7 +182,7 @@ class Pot:
             if self.isMoving:
                 other.isMoving = True
                 pass
-        elif group == 'pot:noodle':
+        elif group == 'pot:noodle' and other.attached_pot == self:
             if self.water:
                 other.water = True
             pass

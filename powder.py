@@ -47,7 +47,7 @@ class Powder:
             if self.OnRamen:
                 self.isSelected2 = True  # 고정 상태 활성화
                 powder = Powder()
-                game_world.add_object(powder, 4)
+                game_world.add_object(powder, 6)
                 game_world.add_collision_pair('pot:powder', powder, None)
             elif not self.OnRamen:
                 self.isSelected2 = False  # 냄비 위가 아니면 초기화

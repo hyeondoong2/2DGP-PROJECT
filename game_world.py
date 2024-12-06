@@ -1,4 +1,4 @@
-world = [[] for _ in range(10)]
+world = [[] for _ in range(12)]
 collision_pairs={}
 import play_mode
 

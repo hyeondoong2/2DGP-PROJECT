@@ -26,7 +26,7 @@ class SpringOnion:
             self.x, self.y,  # 그릴 위치 (x, y)
             self.width, self.height  # 그릴 크기 (width, height)
         )
-        #draw_rectangle(*self.get_bb())
+        draw_rectangle(*self.get_bb())
 
     def get_bb(self):
         # fill here
@@ -42,14 +42,14 @@ class SpringOnion:
             if self.OnRamen:
                 self.isSelected2 = True  # 고정 상태 활성화
                 onion = SpringOnion()
-                game_world.add_object(onion,6)
+                game_world.add_object(onion,8)
                 game_world.add_collision_pair('pot:springOnion', onion, None)
             elif not self.OnRamen:
                 self.isSelected2 = False # 냄비 위가 아니면 초기화
 
         # 충돌 여부에 따라 Bounding Box 조정
         if self.isSelected or self.OnRamen:
-            self.bb_x, self.bb_y = 70, 40
+            self.bb_x, self.bb_y = 20, 20
         elif not self.isSelected:
             self.bb_x, self.bb_y = 100, 60
 

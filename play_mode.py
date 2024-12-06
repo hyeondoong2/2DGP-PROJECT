@@ -2,6 +2,7 @@ import random
 from random import randint
 
 from pico2d import *
+
 import game_world
 from sdl2 import SDL_QUIT, SDL_KEYDOWN, SDLK_ESCAPE, SDL_MOUSEMOTION, SDL_MOUSEBUTTONDOWN, SDL_MOUSEBUTTONUP
 import game_framework, title_mode
@@ -21,6 +22,7 @@ from price import Price
 mouse_x, mouse_y = 0, 0
 click_x, click_y = 0, 0
 up_x, up_y = 0, 0
+
 
 class Game:
     def __init__(self):
@@ -111,16 +113,16 @@ def init():
     game_world.add_object(kitchen, 0)
     game_world.add_object(tray, 0)
     game_world.add_objects(fire, 1)
-    game_world.add_objects(pot, 2)
-    game_world.add_objects(temporary_pot, 2)
+    game_world.add_objects(pot, 3)
+    game_world.add_objects(temporary_pot, 3)
 
-    game_world.add_object(noodle, 3)
-    game_world.add_object(powder, 4)
-    game_world.add_object(egg, 5)
-    game_world.add_object(springOnion, 6)
+    game_world.add_object(noodle, 4)
+    game_world.add_object(powder, 6)
+    game_world.add_object(egg, 7)
+    game_world.add_object(springOnion, 8)
 
-    game_world.add_object(kettle, 8)
-    game_world.add_object(recipe, 8)
+    game_world.add_object(kettle, 9)
+    game_world.add_object(recipe, 9)
 
     # 충돌 정보 등록
     game_world.add_collision_pair('pot:egg', egg, None)
@@ -152,7 +154,7 @@ def check_score(pot):
         pot.price = 0
         game.money += pot.price
         price = Price(1, pot.price)
-        game_world.add_object(price, 9)
+        game_world.add_object(price, 10)
     elif recipe.type == 0:
         # 파o, 계란o
         if not pot.spring_onion:
@@ -184,32 +186,35 @@ def check_score(pot):
 
     if pot.price == 1000:
         price = Price(2, pot.price)
-        game_world.add_object(price, 9)
+        game_world.add_object(price, 10)
     elif pot.price == 750:
         price = Price(3, pot.price)
-        game_world.add_object(price, 9)
+        game_world.add_object(price, 10)
     elif pot.price == 500:
         price = Price(4, pot.price)
-        game_world.add_object(price, 9)
+        game_world.add_object(price, 10)
     elif pot.price == 300:
         price = Price(5, pot.price)
-        game_world.add_object(price, 9)
+        game_world.add_object(price, 10)
 
     # 현재 recipe 제거
     game_world.remove_object(recipe)
 
     # 새로운 recipe 생성 및 등록
     recipe = Recipe(random.randint(0, 3))  # 새로운 레시피 생성
-    game_world.add_object(recipe, 8)  # 새로운 레시피를 게임 월드에 추가
+    game_world.add_object(recipe, 9)  # 새로운 레시피를 게임 월드에 추가
     pass
 
 def get_temporary_pot():
     global temporary_pot
     if temporary_pot:  # 리스트가 비어있지 않은 경우
-        return temporary_pot.pop(0)  # 가장 앞의 냄비를 반환하고 리스트에서 제거
+        pot = temporary_pot.pop(0)  # 가장 앞의 냄비를 가져옵니다
+        game_world.remove_object(pot)  # 해당 냄비를 게임 월드에서 제거
+        return pot  # 냄비 반환
     else:
-        print("No temporary pots available!")
+        #print("No temporary pots available!")
         return None
+
 
 
 def update():

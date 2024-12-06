@@ -45,8 +45,8 @@ class Pot:
             self.x, self.y,  # 그릴 위치 (x, y)
             self.width, self.height  # 그릴 크기 (width, height)
         )
-        #draw_rectangle(*self.get_bb())
-        #draw_rectangle(*self.get_move_bb())
+        draw_rectangle(*self.get_bb())
+        draw_rectangle(*self.get_move_bb())
 
     def get_bb(self):
         return self.x - self.bb_x, self.y - self.bb_y + 20, self.x + self.bb_x, self.y + self.bb_y + 20

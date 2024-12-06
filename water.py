@@ -101,13 +101,15 @@ class Water:
             self.attached_pot = other
 
 
-        if  group == 'pot:water' and self.frame_x > 3:
+        if  (group == 'pot:water' and self.frame_x > 3
+                and self.attached_pot == other):
             other.isCooked = True
             if self.make_sound == False:
                 self.effect.play()
                 self.make_sound = True
 
-        if group == 'pot:water' and self.frame_x > 12:
+        if (group == 'pot:water' and self.frame_x > 12
+            and self.attached_pot == other):
             other.isBurnt = True
             self.effect.set_volume(0)
 

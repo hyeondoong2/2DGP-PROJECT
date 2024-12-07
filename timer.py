@@ -14,7 +14,7 @@ class Timer:
         self.previous_time = get_time()
 
         self.effect = load_wav('sounds/timer.WAV')
-        self.effect.set_volume(30)  # 볼륨 설정 (0~128)
+        self.effect.set_volume(60)  # 볼륨 설정 (0~128)
         self.effect.repeat_play()
 
     def draw(self):
@@ -55,3 +55,6 @@ class Timer:
     def reset(self):
         self.time = self.max_time
         self.previous_time = time.time()
+
+    def __del__(self):
+        print("Timer object is being deleted.")  # 디버깅용 출력

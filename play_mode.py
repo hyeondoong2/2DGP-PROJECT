@@ -90,6 +90,9 @@ def init():
     global game
     global recipe
     global timer
+    global TIME_OUT
+
+    TIME_OUT = False
 
     running = True
     kitchen = Kitchen()
@@ -235,10 +238,12 @@ def get_temporary_pot():
 def update():
     global recipe_creation_time
     global recipe
+    global TIME_OUT
 
     if TIME_OUT:
+        print('time_out')
+        timer.effect.set_volume(0)
         game_world.remove_all_objects()
-        game_world.clear()
         if game.money >= 5000 :
             win_mode.money = game.money
             game_framework.change_mode(win_mode)

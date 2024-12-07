@@ -58,19 +58,19 @@ def remove_object(o):
 def remove_all_objects():
     global world, collision_pairs
 
-    # 충돌 객체들을 미리 제거하기 위한 리스트
-    to_remove = []
-
     # 모든 객체 삭제
     for layer in world:
-        to_remove.extend(layer)  # 한 번에 객체 리스트에 추가
-    for o in to_remove:
-        remove_collision_objects(o)  # 충돌 객체들 한 번에 처리
-        del o  # 메모리에서 객체 삭제
+        while layer:
+            o = layer.pop()  # 객체를 즉시 제거
+            #print(f"Removing object: {o}")  # 객체 디버깅 출력
+            remove_collision_objects(o)
+            del o
 
     # 월드와 충돌 쌍 초기화
     world = [[] for _ in range(12)]
     collision_pairs = {}
+    print("All objects and collisions removed.")  # 최종 확인
+
 
 
 def clear():

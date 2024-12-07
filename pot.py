@@ -12,7 +12,7 @@ class Pot:
         self.frame_x = 0
         self.image_width, self.image_height = 181, 118
         self.bb_x, self.bb_y = 50, 30
-        self.move_bb_x, self.move_bb_y = 20, 10
+        self.move_bb_x, self.move_bb_y = 20, 20
         self.width, self.height = 181, 118
         self.price = 1000
         self.water = False

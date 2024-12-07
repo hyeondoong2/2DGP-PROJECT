@@ -69,7 +69,7 @@ def remove_all_objects():
     # 월드와 충돌 쌍 초기화
     world = [[] for _ in range(12)]
     collision_pairs = {}
-    print("All objects and collisions removed.")  # 최종 확인
+    #print("All objects and collisions removed.")  # 최종 확인
 
 
 

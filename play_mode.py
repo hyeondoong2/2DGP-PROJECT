@@ -237,7 +237,6 @@ def update():
     global recipe
 
     if TIME_OUT:
-        timer.effect.__del__()
         game_world.remove_all_objects()
         game_world.clear()
         if game.money >= 5000 :

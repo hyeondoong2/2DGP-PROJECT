@@ -21,6 +21,7 @@ def handle_events():
             # 메뉴 클릭 처리
             if gameStart.isDragged:
                 gameStart.effect.play()
+                play_mode.TIME_OUT = False
                 game_framework.change_mode(play_mode)  # GameStart 메뉴 클릭 시 플레이 모드로 전환
 
 
